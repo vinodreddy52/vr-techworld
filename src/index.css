@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.dialog_title {
+  background: #1976d2;
+  color: #fff;
+  padding: 6px 20px !important;
+}
+.price_tag {
+  text-align: center;
+}
+.cancel_btn {
+  color: #fff !important;
+  background-color: #b82828 !important;
+}
