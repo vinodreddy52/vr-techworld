@@ -13,7 +13,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import {  Email, WhatsApp, LocationOn, Phone } from "@mui/icons-material";
+import {  Email, WhatsApp,  Phone } from "@mui/icons-material";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -78,12 +78,12 @@ export default function Contact() {
           {/* Contact Information */}
           <Grid item xs={12} md={6}>
             <Typography variant="h5">Contact Information</Typography>
-            <Box sx={{ mt: 2, display: "flex", alignItems: "center" }}>
+            {/* <Box sx={{ mt: 2, display: "flex", alignItems: "center" }}>
               <LocationOn color="primary" />
               <Typography variant="body1" sx={{ ml: 1 }}>
                 Chennai, India
               </Typography>
-            </Box>
+            </Box> */}
             <Box sx={{ mt: 1, display: "flex", alignItems: "center" }}>
               <Phone color="primary" />
               <Typography variant="body1" sx={{ ml: 1 }}>
@@ -101,11 +101,11 @@ export default function Contact() {
             <Box sx={{ mt: 3, display: "flex", gap: 2 }}>
               
               <Tooltip title="Email" arrow>
-                <IconButton color="error" href="mailto:vrtechworld19@gmail.com">
+                <IconButton target="_blank" color="error" href="mailto:vrtechworld19@gmail.com">
                   <Email />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="WhatsApp" arrow>
+              <Tooltip target="_blank" title="WhatsApp" arrow>
                 <IconButton color="success" href="https://wa.me/919042238332">
                   <WhatsApp />
                 </IconButton>
