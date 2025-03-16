@@ -31,7 +31,7 @@ const Footer = () => {
             <Typography variant="h6" fontWeight="bold" gutterBottom sx={{ fontSize: "1rem" }}>
               Quick Links
             </Typography>
-            {["Home", "About Us", "Pricing", "Contact"].map((text, index) => (
+            {["Home", "Service", "Pricing", "Contact"].map((text, index) => (
               <Link
                 key={index}
                 href={`/${text.toLowerCase().replace(" ", "")}`}

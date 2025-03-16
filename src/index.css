@@ -23,3 +23,6 @@ code {
   color: #fff !important;
   background-color: #b82828 !important;
 }
+.nav_item:hover {
+  background-color: #1976d2 !important;
+}
