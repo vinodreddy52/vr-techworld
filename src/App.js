@@ -1,10 +1,10 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";  // Corrected Navbar path
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 
-// Lazy load pages from the correct directory
+// Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
 const Service = lazy(() => import("./pages/Service"));
 const Pricing = lazy(() => import("./pages/Pricing"));
@@ -16,14 +16,14 @@ const App = () => {
       <Navbar />
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/Home" element={<Home />} />
-          <Route path="/Service" element={<Service />} />
+          <Route path="/" element={<Home />} /> {/* ✅ FIXED: Home Route */}
+          <Route path="/service" element={<Service />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
-        <ScrollToTopButton />
-        <Footer />
       </Suspense>
+      <ScrollToTopButton />
+      <Footer />
     </Router>
   );
 };
