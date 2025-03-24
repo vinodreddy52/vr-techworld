@@ -83,7 +83,7 @@ const Services = () => {
   
 
   return (
-    <Box sx={{ py: 10 }}>
+    <Box sx={{ py: 15 }}>
       <Container maxWidth="lg">
         <Typography variant="h4" align="center" fontWeight="bold" gutterBottom>
           Our Services

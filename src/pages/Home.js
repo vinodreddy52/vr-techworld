@@ -13,7 +13,7 @@ const Home = () => {
       <Box sx={{
         background: "linear-gradient(to right, #1F4068, #5C258D)",
         color: "white",
-        py: 10,
+        py: 15,
         textAlign: "center",
         whiteSpace:'nowrap'
       }}>

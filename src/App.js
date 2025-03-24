@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import TawkToChat from './components/ChatWidget';
+import FlashNews from "./components/FlashNews";
 // Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
 const Service = lazy(() => import("./pages/Service"));
@@ -14,7 +15,9 @@ const App = () => {
   return (
     <Router>
       <Navbar />
+      
       <Suspense fallback={<div>Loading...</div>}>
+      <FlashNews />
         <Routes>
           <Route path="/" element={<Home />} /> {/* ✅ FIXED: Home Route */}
           <Route path="/service" element={<Service />} />

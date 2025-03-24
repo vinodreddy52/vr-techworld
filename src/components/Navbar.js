@@ -28,7 +28,7 @@ const Navbar = () => {
       <Toolbar>
       <Box sx={{ flexGrow: 1 }}>
   <img
-    src="/images/logo.png"
+    src="/images/white_newlogo.png"
     alt="VR Techworld"
     style={{
       width: "180px", // Adjust width

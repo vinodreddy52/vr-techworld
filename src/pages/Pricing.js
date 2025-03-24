@@ -83,7 +83,7 @@ const Pricing = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ py: 10 }}>
+    <Container maxWidth="lg" sx={{ py: 15 }}>
       <Typography variant="h3" align="center" gutterBottom fontWeight="bold">
         Our Pricing Plans
       </Typography>

@@ -58,7 +58,7 @@ export default function Contact() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ paddingTop: "5rem" }}>
+    <Container maxWidth="md" sx={{ paddingTop: "8rem" }}>
       <Typography variant="h4" gutterBottom align="center">
         Contact VR Techworld
       </Typography>
