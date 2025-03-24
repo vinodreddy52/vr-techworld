@@ -1,7 +1,7 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import { AppBar, Toolbar,  Button, Box } from "@mui/material";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll";
+//import { animateScroll as scroll } from "react-scroll";
 
 const Navbar = () => {
   const location = useLocation();
