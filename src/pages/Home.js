@@ -15,13 +15,14 @@ const Home = () => {
         color: "white",
         py: 10,
         textAlign: "center",
+        whiteSpace:'nowrap'
       }}>
         <Container maxWidth="md">
           <Typography variant="h3" fontWeight="bold" gutterBottom>
             Empower Your Business with Our Services
           </Typography>
           <Typography variant="h6" sx={{ opacity: 0.8, mb: 3 }}>
-            We provide top-notch solutions to help your business thrive in the digital age.
+            We provide innovative and high-quality solutions to help your business succeed in the digital era.
           </Typography>
           <Button
             variant="contained"
@@ -41,7 +42,7 @@ const Home = () => {
           What We Offer
         </Typography>
         <Typography variant="body1" align="center" sx={{ opacity: 0.7, mb: 5 }}>
-          Explore our range of services tailored to meet your business needs.
+          Discover our customized services designed to meet your business needs.
         </Typography>
 
         <Grid container spacing={4}>

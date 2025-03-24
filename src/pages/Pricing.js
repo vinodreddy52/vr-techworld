@@ -10,23 +10,66 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Chip,
 } from "@mui/material";
 
 const pricingPlans = [
   {
     title: "Basic",
-    price: "$19/month",
-    features: ["1 Website", "10GB Storage", "Basic Support"],
+    price: "₹ 3500",
+    description: "Ideal for individuals and small businesses starting online.",
+    features: [
+      "1 Website",
+      "5 Static Web Pages",
+      "Basic Support",
+      "Mobile-Friendly Design",
+      "SEO-Optimized Structure",
+      "Fast Loading Speed",
+    ],
+    services: ["Domain Setup Assistance", "Basic Website Analytics"],
   },
   {
     title: "Pro",
-    price: "$49/month",
-    features: ["5 Websites", "50GB Storage", "Priority Support"],
+    price: "₹ 7500",
+    description: "Best value for growing businesses looking for advanced features.",
+    features: [
+      "1 Website",
+      "10 Static Web Pages",
+      "Priority Support",
+      "Free SSL Certificate",
+      "Custom Domain Integration",
+      "SEO Optimization",
+      "Performance Monitoring",
+      "Custom Contact Forms",
+    ],
+    services: [
+      "Google Analytics Integration",
+      "Advanced SEO Setup",
+      "Social Media Integration",
+    ],
+    highlight: true, // Ensure Pro is always highlighted
   },
   {
     title: "Enterprise",
-    price: "$99/month",
-    features: ["Unlimited Websites", "200GB Storage", "24/7 Support"],
+    price: "₹ 15,000",
+    description:
+      "Comprehensive solutions for businesses requiring scalability and dedicated support.",
+    features: [
+      "2 Websites",
+      "Custom Web Pages",
+      "Dedicated Support 24/7",
+      "Free SSL Certificate",
+      "Custom Domain Integration",
+      "Advanced Security Features",
+      "Cloud Hosting for Maximum Uptime",
+      // "E-Commerce & Payment Integration",
+      // "Custom API Integrations",
+    ],
+    services: [
+      "Dedicated Account Manager",
+      "Website Performance Optimization",
+      // "Full API & CRM Integration",
+    ],
   },
 ];
 
@@ -56,15 +99,42 @@ const Pricing = () => {
                 p: 3,
                 textAlign: "center",
                 transition: "0.3s",
+                position: "relative",
+                ...(plan.highlight && {
+                  border: "3px solid #ff9800",
+                  backgroundColor: "#fff3e0",
+                  boxShadow: "0px 4px 15px rgba(255, 152, 0, 0.4)",
+                }),
                 "&:hover": { transform: "scale(1.05)", boxShadow: 6 },
               }}
             >
+              {plan.highlight && (
+                <Chip
+                  label="Most Popular"
+                  color="warning"
+                  sx={{
+                    position: "absolute",
+                    top: -3,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                    padding: "5px 10px",
+                  }}
+                />
+              )}
               <CardContent>
                 <Typography variant="h5" fontWeight="bold">
                   {plan.title}
                 </Typography>
-                <Typography variant="h4" color="primary" my={2}>
+                <Typography variant="subtitle2" color="text.secondary" mb={2}>
+                  {plan.description}
+                </Typography>
+                <Typography variant="h4" color="primary" my={2} fontWeight="bold">
                   {plan.price}
+                </Typography>
+                <Typography variant="h6" fontWeight="bold" mt={2} mb={1}>
+                  Features:
                 </Typography>
                 <ul style={{ listStyle: "none", padding: 0 }}>
                   {plan.features.map((feature, i) => (
@@ -73,9 +143,23 @@ const Pricing = () => {
                     </li>
                   ))}
                 </ul>
+                {plan.services && (
+                  <>
+                    <Typography variant="h6" fontWeight="bold" mt={2} mb={1}>
+                      Additional Services:
+                    </Typography>
+                    <ul style={{ listStyle: "none", padding: 0 }}>
+                      {plan.services.map((service, i) => (
+                        <li key={i} style={{ marginBottom: "8px" }}>
+                          🔹 {service}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
                 <Button
                   variant="contained"
-                  color="primary"
+                  color={plan.highlight ? "warning" : "primary"}
                   fullWidth
                   sx={{ mt: 3, borderRadius: "8px" }}
                   onClick={() => handleChoosePlan(plan)}
@@ -92,14 +176,14 @@ const Pricing = () => {
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle className="dialog_title">Confirm Your Plan</DialogTitle>
         <DialogContent>
-          <Typography variant="h6" style={{paddingTop:'15px'}}>
+          <Typography variant="h6" style={{ paddingTop: "15px" }}>
             You selected the <strong>{selectedPlan?.title}</strong> plan.
           </Typography>
           <Typography className="price_tag" color="primary" variant="h5" mt={2}>
             {selectedPlan?.price}
           </Typography>
         </DialogContent>
-        <DialogActions style={{marginBottom:'15px'}}>
+        <DialogActions style={{ marginBottom: "15px" }}>
           <Button className="cancel_btn" onClick={() => setOpen(false)} color="secondary">
             Cancel
           </Button>

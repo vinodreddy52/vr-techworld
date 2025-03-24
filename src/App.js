@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTopButton from "./components/ScrollToTopButton";
-
+import TawkToChat from './components/ChatWidget';
 // Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
 const Service = lazy(() => import("./pages/Service"));
@@ -22,6 +22,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Suspense>
+      <TawkToChat /> 
       <ScrollToTopButton />
       <Footer />
     </Router>
