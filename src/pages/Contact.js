@@ -63,7 +63,7 @@ export default function Contact() {
         Contact VR Techworld
       </Typography>
       <Typography align="center" sx={{ mb: 3 }}>
-        Get in touch for Website Design, Hosting, Logo Design, Digital Ads, and Business Services.
+        Connect with us for premium Website Design, Hosting, Logo Creation, Digital Advertising, and Business Growth Solutions.
       </Typography>
 
       <Card
