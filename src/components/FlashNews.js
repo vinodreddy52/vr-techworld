@@ -8,35 +8,43 @@ const FlashNews = () => {
     "🔔 20% Limited-time offers available now!",
   ];
 
+  //const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <Box className="flash_news" sx={{ 
-        position: "fixed",  // Stick to the top
-        top: 70,
+    <Box
+      sx={{
+        position: "fixed",
+        top: 70, // Adjust based on navbar height
         left: 0,
         width: "100%",
         background: "#FF5733",
         color: "white",
-        padding: "5px",
-        textAlign: "center",
-        zIndex: 2000, 
-    }}>
-      <Typography
-        component="div"
+        padding: "6px 0",
+        overflow: "hidden",
+        zIndex: 1000,
+        fontSize: { xs: "12px", sm: "14px", md: "16px" },
+      }}
+    >
+      <Box
         sx={{
-          display: "inline-block",
-          animation: "scrollText 15s linear infinite",
+          display: "flex",
+          gap: "50px", // Space between news items
+          whiteSpace: "nowrap",
+          animation: "scrollText 25s linear infinite", // Slower scrolling
           "@keyframes scrollText": {
             from: { transform: "translateX(100%)" },
             to: { transform: "translateX(-100%)" },
           },
         }}
+        //onMouseEnter={() => setIsHovered(true)}
+        //onMouseLeave={() => setIsHovered(false)}
       >
-        {newsItems.map((news, index) => (
-          <span key={index} style={{ marginRight: "50px" }}>
+        {newsItems.concat(newsItems).map((news, index) => ( // Duplicate for seamless loop
+          <Typography key={index} sx={{ display: "inline-block" }}>
             {news}
-          </span>
+          </Typography>
         ))}
-      </Typography>
+      </Box>
     </Box>
   );
 };
