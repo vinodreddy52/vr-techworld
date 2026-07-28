@@ -3,44 +3,51 @@ import { Box, Typography } from "@mui/material";
 
 const FlashNews = () => {
   const newsItems = [
-    "🚀 Big discounts on our services! Contact us now!",
-    "📢 New features coming soon! Stay tuned!",
-    "🔔 20% Limited-time offers available now!",
+    "Big discounts on our services! Contact us now!",
+    "New features coming soon! Stay tuned!",
+    "20% Limited-time offers available now!",
   ];
-
-  //const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Box
       sx={{
         position: "fixed",
-        top: 70, // Adjust based on navbar height
+        top: { xs: 56, sm: 64 },
         left: 0,
         width: "100%",
-        background: "#FF5733",
+        maxWidth: "100%",
+        background: "#FF6B35",
         color: "white",
-        padding: "6px 0",
+        py: { xs: 0.6, sm: 0.75 },
         overflow: "hidden",
-        zIndex: 1000,
-        fontSize: { xs: "12px", sm: "14px", md: "16px" },
+        zIndex: 1100,
+        boxSizing: "border-box",
       }}
     >
       <Box
         sx={{
           display: "flex",
-          gap: "50px", // Space between news items
+          width: "max-content",
+          gap: { xs: 4, sm: 6 },
           whiteSpace: "nowrap",
-          animation: "scrollText 25s linear infinite", // Slower scrolling
-          "@keyframes scrollText": {
-            from: { transform: "translateX(100%)" },
-            to: { transform: "translateX(-100%)" },
+          animation: "flashScroll 28s linear infinite",
+          "@keyframes flashScroll": {
+            from: { transform: "translateX(0)" },
+            to: { transform: "translateX(-50%)" },
           },
         }}
-        //onMouseEnter={() => setIsHovered(true)}
-        //onMouseLeave={() => setIsHovered(false)}
       >
-        {newsItems.concat(newsItems).map((news, index) => ( // Duplicate for seamless loop
-          <Typography key={index} sx={{ display: "inline-block" }}>
+        {[...newsItems, ...newsItems].map((news, index) => (
+          <Typography
+            key={`${news}-${index}`}
+            component="span"
+            sx={{
+              display: "inline-block",
+              fontFamily: '"Outfit", sans-serif',
+              fontSize: { xs: "0.75rem", sm: "0.85rem", md: "0.95rem" },
+              px: 0.5,
+            }}
+          >
             {news}
           </Typography>
         ))}

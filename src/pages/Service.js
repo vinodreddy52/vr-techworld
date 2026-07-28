@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import {
   Container,
-  Grid,
-  Card,
-  CardContent,
   Typography,
   Box,
   Button,
@@ -12,30 +9,111 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  IconButton,
 } from "@mui/material";
-import { Web, Brush, Campaign, Receipt, Assignment, Business, Work,  } from "@mui/icons-material";
-import emailjs from "@emailjs/browser";
+//import ThemeToggle from "../components/ThemeToggle";
+import {
+  Web,
+  Brush,
+  Campaign,
+  Receipt,
+  Assignment,
+  Business,
+  Work,
+  ArrowForward,
+  Close,
+} from "@mui/icons-material";
+import "./Service.css";
 
 const services = [
-  { icon: <Web fontSize="large" sx={{ color: "#FFEB3B" }} />, title: "Website Design & Hosting", description: "We craft modern, mobile-friendly, and SEO-optimized websites that captivate audiences. Our secure hosting ensures 99.9% uptime and fast performance." },
-  { icon: <Brush fontSize="large" sx={{ color: "#E91E63" }} />, title: "Logo Design", description: "Get a unique, high-resolution logo that represents your brand identity. We design professional logos tailored to your business theme and audience." },
-  { icon: <Campaign fontSize="large" sx={{ color: "#4CAF50" }} />, title: "Social Media & Google Ads", description: "Boost your brand’s reach with strategic digital marketing. We create targeted campaigns for Facebook, Instagram, and Google Ads." },
-  { icon: <Receipt fontSize="large" sx={{ color: "#FF9800" }} />, title: "Income Tax & TDS Return", description: "We provide hassle-free tax filing and compliance solutions for businesses and individuals, ensuring accuracy and maximum deductions." },
-  { icon: <Assignment fontSize="large" sx={{ color: "#3F51B5" }} />, title: "GST & LLP Registration", description: "Register your business with ease. We handle GST and LLP registration processes efficiently with government compliance." },
-  { icon: <Business fontSize="large" sx={{ color: "#9C27B0" }} />, title: "Firm & MSME Registration", description: "Start your business legally with our firm and MSME registration services. Unlock benefits like loans, tax exemptions, and subsidies." },
-  { icon: <Work fontSize="large" sx={{ color: "#009688" }} />, title: "ESI, PF & Labour Compliance", description: "Ensure compliance with employee benefits like ESI, PF, and labor laws. We assist businesses in setting up payroll and legal formalities." },
+  {
+    icon: Web,
+    title: "Website Design & Hosting",
+    description:
+      "Modern, mobile-friendly, SEO-ready websites with secure hosting for speed and uptime.",
+  },
+  {
+    icon: Brush,
+    title: "Logo Design",
+    description:
+      "Distinctive, high-resolution logos shaped around your brand identity and audience.",
+  },
+  {
+    icon: Campaign,
+    title: "Social Media & Google Ads",
+    description:
+      "Targeted Facebook, Instagram, and Google campaigns that grow reach and conversions.",
+  },
+  {
+    icon: Receipt,
+    title: "Income Tax & TDS Return",
+    description:
+      "Accurate filing and compliance support for businesses and individuals.",
+  },
+  {
+    icon: Assignment,
+    title: "GST & LLP Registration",
+    description:
+      "End-to-end GST and LLP registration handled with government compliance.",
+  },
+  {
+    icon: Business,
+    title: "Firm & MSME Registration",
+    description:
+      "Legal setup for firms and MSMEs so you can unlock loans, exemptions, and subsidies.",
+  },
+  {
+    icon: Work,
+    title: "ESI, PF & Labour Compliance",
+    description:
+      "Payroll-ready support for ESI, PF, and labour formalities your team needs.",
+  },
 ];
+
+const emptyForm = { name: "", email: "", mobile: "", message: "" };
+
+const ctaButtonSx = {
+  flex: "0 0 auto",
+  alignSelf: { xs: "stretch", md: "center" },
+  width: { xs: "100%", md: "auto" },
+  maxWidth: "100%",
+  fontFamily: '"Outfit", sans-serif',
+  fontWeight: 600,
+  textTransform: "none",
+  bgcolor: "var(--accent)",
+  color: "#fff",
+  px: { xs: 2, sm: 2.5 },
+  py: 1.25,
+  borderRadius: "6px",
+  boxShadow: "none",
+  whiteSpace: "nowrap",
+  "&:hover": {
+    bgcolor: "var(--accent-hover)",
+    boxShadow: "none",
+  },
+};
 
 const Services = () => {
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", email: "", mobile:"", message: "" });
+  const [formData, setFormData] = useState(emptyForm);
   const [errors, setErrors] = useState({});
+  const [selectedService, setSelectedService] = useState("");
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (serviceTitle = "") => {
+    setSelectedService(serviceTitle);
+    setFormData({
+      ...emptyForm,
+      message: serviceTitle ? `I'm interested in ${serviceTitle}.` : "",
+    });
+    setErrors({});
+    setOpen(true);
+  };
+
   const handleClose = () => {
     setOpen(false);
-    setErrors({}); // Reset validation errors when closing the dialog
-    setFormData({ name: "", email: "", message: "" }); // Optional: Reset form fields
+    setErrors({});
+    setFormData(emptyForm);
+    setSelectedService("");
   };
 
   const handleChange = (e) => {
@@ -43,147 +121,575 @@ const Services = () => {
   };
 
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
-  
   const validateMobile = (mobile) => /^[6-9]\d{9}$/.test(mobile);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let validationErrors = {};
-  
+    const validationErrors = {};
+
     if (!formData.name.trim()) validationErrors.name = "Name is required";
     if (!formData.email.trim() || !validateEmail(formData.email))
       validationErrors.email = "Enter a valid email";
     if (!formData.mobile.trim() || !validateMobile(formData.mobile))
       validationErrors.mobile = "Enter a valid 10-digit mobile number";
-    if (!formData.message.trim()) validationErrors.message = "Message cannot be empty";
-  
+    if (!formData.message.trim())
+      validationErrors.message = "Message cannot be empty";
+
     setErrors(validationErrors);
-  
+
     if (Object.keys(validationErrors).length === 0) {
-      emailjs
-        .send(
-          "service_xo08jtx",
-          "template_fufqkdg",
-          formData,
-          "your_emailjs_public_key"
-        )
-        .then(
-          () => {
+      const endpoint =
+        process.env.REACT_APP_FORMSPREE_ENDPOINT ||
+        "https://formspree.io/f/mrenjbwk"; // fallback to provided endpoint
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then(async (res) => {
+          if (res.ok) {
             alert("Message sent successfully!");
-            setFormData({ name: "", email: "", mobile: "", message: "" });
-            setOpen(false); // Close dialog after success
-          },
-          (error) => {
-            console.error("Email Error:", error);
+            handleClose();
+          } else {
+            const data = await res.json().catch(() => null);
+            console.error("Formspree error:", data || res.statusText);
+            alert("Failed to send message. Please try again later.");
           }
-        );
+        })
+        .catch((err) => {
+          console.error("Formspree error:", err);
+          alert("Failed to send message. Please try again later.");
+        });
     }
   };
-  
-  
+
+  const fieldSx = {
+    mb: 2,
+    "& .MuiOutlinedInput-root": {
+      fontFamily: '"Outfit", sans-serif',
+      borderRadius: "8px",
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: "#1F4068",
+      },
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#1F4068",
+    },
+  };
 
   return (
-    <Box sx={{ py: 15 }}>
-      <Container maxWidth="lg">
-        <Typography variant="h4" align="center" fontWeight="bold" gutterBottom>
-          Our Services
-        </Typography>
-        <Typography variant="body1" align="center" sx={{ mb: 4, opacity: 0.8 }}>
-          Explore our wide range of services designed to help your business thrive.
-        </Typography>
+    <Box
+      sx={{
+        overflowX: "hidden",
+        width: "100%",
+        maxWidth: "100%",
+        bgcolor: "var(--surface)",
+        minHeight: { md: "100vh" },
+        display: "flex",
+        flexDirection: "column",
+        boxSizing: "border-box",
+      }}
+    >
+      <Box
+        component="section"
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          maxWidth: "100%",
+          pb: 0,
+          boxSizing: "border-box",
+        }}
+      >
+        {/* Header — full-bleed bg, constrained content */}
+        <Box
+          className="service-fade-up"
+          sx={{
+            width: "100%",
+            maxWidth: "100%",
+            pt: { xs: 11, sm: 12, md: 12 },
+            background: "linear-gradient(125deg, var(--appbar-bg) 0%, rgba(31,64,104,1) 100%)",
+            color: "#fff",
+            position: "relative",
+            boxSizing: "border-box",
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              overflow: "hidden",
+              pointerEvents: "none",
+            }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                width: 280,
+                height: 280,
+                borderRadius: "50%",
+                right: -80,
+                top: -100,
+                background:
+                  "radial-gradient(circle, rgba(255,107,53,0.25) 0%, transparent 70%)",
+              }}
+            />
+          </Box>
 
-        <Grid container spacing={4}>
-          {services.map((service, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card sx={{ borderRadius: "12px", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", transition: "0.3s", "&:hover": { transform: "scale(1.03)", boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.15)" } }}>
-                <CardContent sx={{ textAlign: "center", py: 4 }}>
-                  <Box mb={2}>{service.icon}</Box>
-                  <Typography variant="h6" fontWeight="bold">{service.title}</Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.8, mb: 2 }}>{service.description}</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+          <Container maxWidth="lg" sx={{ position: "relative", py: { xs: 3, md: 4 } }}>
+            <Box sx={{ position: "absolute", top: 12, right: 12 }}>
+              {/* <ThemeToggle /> */}
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: { xs: "stretch", md: "center" },
+                justifyContent: "space-between",
+                gap: { xs: 2, md: 3 },
+                width: "100%",
+              }}
+            >
+              <Box sx={{ flex: "1 1 auto", minWidth: 0 }}>
+                <Typography
+                  sx={{
+                    fontFamily: '"Outfit", sans-serif',
+                    fontWeight: 600,
+                    fontSize: "0.75rem",
+                    letterSpacing: "0.12em",
+                    textTransform: "uppercase",
+                    color: "var(--accent)",
+                    mb: 1,
+                  }}
+                >
+                  Our Services
+                </Typography>
+                <Typography
+                  component="h1"
+                  sx={{
+                    fontFamily: '"Syne", sans-serif',
+                    fontWeight: 800,
+                    fontSize: { xs: "1.35rem", sm: "1.55rem", md: "1.85rem" },
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.02em",
+                    mb: 0.75,
+                  }}
+                >
+                  Digital & business solutions
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: '"Outfit", sans-serif',
+                    fontSize: { xs: "0.88rem", md: "0.95rem" },
+                    color: "rgba(255,255,255,0.7)",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Tap a service to enquire — or book a free consultation.
+                </Typography>
+              </Box>
 
-        {/* Call-To-Action Button */}
-        <Box textAlign="center" mt={5}>
-          <Button variant="contained" color="primary" sx={{ fontSize: "1rem", px: 4, py: 1.5, borderRadius: "30px", backgroundColor: "#1F4068", "&:hover": { background: "#1976d2" } }} onClick={handleOpen}>
-            Get a Free Consultation
-          </Button>
+              <Button
+                variant="contained"
+                endIcon={<ArrowForward />}
+                onClick={() => handleOpen()}
+                sx={ctaButtonSx}
+              >
+                Free Consultation
+              </Button>
+            </Box>
+          </Container>
         </Box>
 
-        {/* Consultation Form Modal */}
-        <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-    <DialogTitle className="" sx={{ pb: 2 }}>Get a Free Consultation</DialogTitle>
-    <DialogContent dividers sx={{ p: 3, overflowY: "auto", maxHeight: "70vh" }}>
-    <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
-      <TextField
-        label="Your Name"
+        {/* Service grid */}
+        <Container
+          maxWidth="lg"
+          sx={{
+            flex: 1,
+            width: "100%",
+            py: { xs: 2.5, md: 3 },
+            boxSizing: "border-box",
+          }}
+        >
+          <Box
+            className="service-fade-up service-fade-up-delay-1"
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, 1fr)",
+                lg: "repeat(3, 1fr)",
+                xl: "repeat(4, 1fr)",
+              },
+              gap: { xs: 1.5, md: 1.75 },
+              alignContent: "start",
+            }}
+          >
+            {services.map((service) => {
+              const Icon = service.icon;
+              return (
+                <Box
+                  key={service.title}
+                  className="service-row"
+                  onClick={() => handleOpen(service.title)}
+                  sx={{
+                    cursor: "pointer",
+                    bgcolor: "var(--card-bg)",
+                    borderRadius: "10px",
+                    p: { xs: 2, md: 2.5 },
+                    border: "1px solid var(--card-border)",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    textAlign: "center",
+                    gap: 1.25,
+                    minHeight: { xs: "auto", md: 210 },
+                    width: "100%",
+                    maxWidth: "100%",
+                    boxSizing: "border-box",
+                    transition:
+                      "border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease",
+                    "&:hover": {
+                      borderColor: "var(--accent)",
+                      boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                      transform: "translateY(-3px)",
+                    },
+                    "&:hover .service-icon-wrap": {
+                      bgcolor: "rgba(255, 107, 53, 0.12)",
+                      color: "var(--accent)",
+                    },
+                    "&:hover .service-title": { color: "var(--accent)" },
+                    "&:hover .service-enquire": { opacity: 1 },
+                  }}
+                >
+                  <Box
+                    className="service-icon-wrap"
+                    sx={{
+                      width: { xs: 68, md: 76 },
+                      height: { xs: 68, md: 76 },
+                      borderRadius: "16px",
+                      bgcolor: "var(--surface)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "var(--appbar-bg)",
+                      transition:
+                        "background-color 0.25s ease, color 0.25s ease",
+                      mb: 0.5,
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Icon sx={{ fontSize: { xs: 36, md: 40 } }} />
+                  </Box>
+
+                  <Typography
+                    className="service-title"
+                    sx={{
+                      fontFamily: '"Syne", sans-serif',
+                      fontWeight: 700,
+                      fontSize: { xs: "0.95rem", md: "1.05rem" },
+                      color: "var(--text)",
+                      lineHeight: 1.3,
+                      transition: "color 0.25s ease",
+                    }}
+                  >
+                    {service.title}
+                  </Typography>
+
+                  <Typography
+                    sx={{
+                      fontFamily: '"Outfit", sans-serif',
+                      fontSize: "0.82rem",
+                      color: "rgba(11, 29, 54, 0.58)",
+                      lineHeight: 1.45,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      flex: 1,
+                    }}
+                  >
+                    {service.description}
+                  </Typography>
+
+                  <Typography
+                    className="service-enquire"
+                    sx={{
+                      fontFamily: '"Outfit", sans-serif',
+                      fontWeight: 600,
+                      fontSize: "0.8rem",
+                      color: "var(--accent)",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 0.5,
+                      opacity: 0.75,
+                      transition: "opacity 0.25s ease",
+                      mt: "auto",
+                    }}
+                  >
+                    Enquire
+                    <ArrowForward sx={{ fontSize: 14 }} />
+                  </Typography>
+                </Box>
+              );
+            })}
+          </Box>
+        </Container>
+
+        {/* CTA — full-bleed bg, constrained content */}
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: "100%",
+            mt: "auto",
+            background: "linear-gradient(145deg, #0B1D36 0%, #1F4068 100%)",
+            color: "#fff",
+            position: "relative",
+            boxSizing: "border-box",
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              inset: 0,
+              overflow: "hidden",
+              pointerEvents: "none",
+            }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                width: 260,
+                height: 260,
+                borderRadius: "50%",
+                left: -80,
+                bottom: -120,
+                background:
+                  "radial-gradient(circle, rgba(255,107,53,0.2) 0%, transparent 70%)",
+              }}
+            />
+          </Box>
+
+          <Container maxWidth="lg" sx={{ position: "relative", py: { xs: 3, md: 4 } }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: { xs: "stretch", md: "center" },
+                justifyContent: "space-between",
+                gap: { xs: 2, md: 3 },
+                width: "100%",
+              }}
+            >
+              <Box sx={{ flex: "1 1 auto", minWidth: 0 }}>
+                <Typography
+                  sx={{
+                    fontFamily: '"Syne", sans-serif',
+                    fontWeight: 700,
+                    fontSize: { xs: "1.15rem", sm: "1.25rem", md: "1.4rem" },
+                    lineHeight: 1.25,
+                    mb: 0.75,
+                  }}
+                >
+                  Not sure what you need?
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: '"Outfit", sans-serif',
+                    fontSize: { xs: "0.88rem", md: "0.95rem" },
+                    color: "rgba(255,255,255,0.7)",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  We’ll recommend the right path for your business.
+                </Typography>
+              </Box>
+
+              <Button
+                variant="contained"
+                endIcon={<ArrowForward />}
+                onClick={() => handleOpen()}
+                sx={ctaButtonSx}
+              >
+                Talk to Us
+              </Button>
+            </Box>
+          </Container>
+        </Box>
+      </Box>
+
+      {/* Consultation dialog */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth="sm"
         fullWidth
-        variant="outlined"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        error={!!errors.name}
-        helperText={errors.name}
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Your Email"
-        fullWidth
-        variant="outlined"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        error={!!errors.email}
-        helperText={errors.email}
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        label="Mobile Number"
-        fullWidth
-        variant="outlined"
-        name="mobile"
-        value={formData.mobile}
-        onChange={(e) => {
-            // Allow only numbers
-            const value = e.target.value.replace(/\D/g, "");
-            // Limit to 10 digits
-            if (value.length <= 10) {
-            setFormData({ ...formData, mobile: value });
-            }
+        fullScreen={false}
+        PaperProps={{
+          sx: {
+            borderRadius: { xs: "10px", sm: "12px" },
+            overflow: "hidden",
+            m: { xs: 2, sm: 3 },
+            width: { xs: "calc(100% - 32px)", sm: "100%" },
+            maxHeight: { xs: "90vh", sm: "85vh" },
+          },
         }}
-        error={!!errors.mobile}
-        helperText={errors.mobile}
-        sx={{ mb: 2 }}
-        />
-
-      <TextField
-        label="Your Message"
-        multiline
-        rows={4}
-        fullWidth
-        variant="outlined"
-        name="message"
-        value={formData.message}
-        onChange={handleChange}
-        error={!!errors.message}
-        helperText={errors.message}
-        sx={{ mb: 2 }}
-      />
-      <DialogActions>
-        <Button className="cancel_btn" onClick={handleClose}>Cancel</Button>
-        <Button type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
-      </DialogActions>
-    </Box>
-  </DialogContent>
-</Dialog>
-
-
-      </Container>
+      >
+        <DialogTitle
+          sx={{
+            fontFamily: '"Syne", sans-serif',
+            fontWeight: 700,
+            color: "var(--text)",
+            pr: 6,
+            pt: 2.5,
+            pb: 1,
+          }}
+        >
+          Get a Free Consultation
+          {selectedService ? (
+            <Typography
+              sx={{
+                fontFamily: '"Outfit", sans-serif',
+                fontSize: "0.88rem",
+                color: "rgba(11, 29, 54, 0.6)",
+                mt: 0.5,
+                fontWeight: 400,
+              }}
+            >
+              About: {selectedService}
+            </Typography>
+          ) : null}
+          <IconButton
+            onClick={handleClose}
+            aria-label="Close"
+            sx={{
+              position: "absolute",
+              right: 12,
+              top: 12,
+              color: "var(--muted)",
+            }}
+          >
+            <Close />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent
+          dividers
+          sx={{
+            p: 3,
+            overflowY: "auto",
+            maxHeight: "70vh",
+            borderColor: "rgba(11, 29, 54, 0.08)",
+          }}
+        >
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              label="Your Name"
+              fullWidth
+              variant="outlined"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              error={!!errors.name}
+              helperText={errors.name}
+              sx={fieldSx}
+            />
+            <TextField
+              label="Your Email"
+              fullWidth
+              variant="outlined"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              error={!!errors.email}
+              helperText={errors.email}
+              sx={fieldSx}
+            />
+            <TextField
+              label="Mobile Number"
+              fullWidth
+              variant="outlined"
+              name="mobile"
+              value={formData.mobile}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                if (value.length <= 10) {
+                  setFormData({ ...formData, mobile: value });
+                }
+              }}
+              error={!!errors.mobile}
+              helperText={errors.mobile}
+              sx={fieldSx}
+            />
+            <TextField
+              label="Your Message"
+              multiline
+              rows={3}
+              fullWidth
+              variant="outlined"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              error={!!errors.message}
+              helperText={errors.message}
+              sx={{ ...fieldSx, mb: 1 }}
+            />
+            <DialogActions
+              sx={{
+                px: 0,
+                pt: 2,
+                gap: 1,
+                flexDirection: { xs: "column-reverse", sm: "row" },
+                "& > :not(style)": {
+                  width: { xs: "100%", sm: "auto" },
+                  m: { xs: "0 !important", sm: undefined },
+                },
+              }}
+            >
+              <Button
+                onClick={handleClose}
+                sx={{
+                  fontFamily: '"Outfit", sans-serif',
+                  textTransform: "none",
+                  color: "rgba(11, 29, 54, 0.65)",
+                  borderRadius: "6px",
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{
+                  fontFamily: '"Outfit", sans-serif',
+                  fontWeight: 600,
+                  textTransform: "none",
+                  bgcolor: "#FF6B35",
+                  borderRadius: "6px",
+                  px: 3,
+                  boxShadow: "none",
+                  "&:hover": {
+                    bgcolor: "#E85A28",
+                    boxShadow: "none",
+                  },
+                }}
+              >
+                Submit
+              </Button>
+            </DialogActions>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

@@ -1,0 +1,82 @@
+@keyframes homeFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes homeKenBurns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes homeLineDraw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.home-hero-media {
+  animation: homeKenBurns 22s ease-out forwards;
+}
+
+.home-fade-up {
+  opacity: 0;
+  animation: homeFadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.home-fade-up-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.home-fade-up-delay-2 {
+  animation-delay: 0.28s;
+}
+
+.home-fade-up-delay-3 {
+  animation-delay: 0.44s;
+}
+
+.home-fade-up-delay-4 {
+  animation-delay: 0.6s;
+}
+
+.home-accent-line {
+  transform-origin: left center;
+  animation: homeLineDraw 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+  transform: scaleX(0);
+}
+
+.home-service-item {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+
+.home-service-item:hover {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-media,
+  .home-fade-up,
+  .home-accent-line {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .home-service-item:hover {
+    transform: none;
+  }
+}
