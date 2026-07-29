@@ -1,17 +1,38 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ScrollToTopButton from "./components/ScrollToTopButton";
-import TawkToChat from './components/ChatWidget';
+import { BrowserRouter as Router, Route, Routes,  } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import ThemeContext from "./ThemeContext";
+const Navbar = lazy(() => import("./components/Navbar"));
+const Footer = lazy(() => import("./components/Footer"));
+const ScrollToTopButton = lazy(() => import("./components/ScrollToTopButton"));
+const LazyTawk = lazy(() => import('./components/LazyTawk'));
 //import FlashNews from "./components/FlashNews";
+
 // Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
 const Service = lazy(() => import("./pages/Service"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Privacy = lazy(() => import("./pages/Privacy"));
+const About = lazy(() => import("./pages/About"));
+
+const RouteChangeTracker = ({ consentStatus }) => {
+ // const location = useLocation();
+
+  useEffect(() => {
+    if (consentStatus === "accepted") {
+      //initGA();
+    }
+  }, [consentStatus]);
+
+  useEffect(() => {
+    if (consentStatus === "accepted") {
+      //trackPageView(location.pathname + location.search);
+    }
+  }, [ consentStatus]);
+
+  return null;
+};
 
 const App = () => {
   const [theme, setTheme] = useState(() => {
@@ -33,23 +54,32 @@ const App = () => {
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme: () => setTheme((t) => (t === "light" ? "dark" : "light")) }}>
-      <Router>
-        <Navbar theme={theme} toggleTheme={() => setTheme((t) => (t === "light" ? "dark" : "light"))} />
-      
-      <Suspense fallback={<div>Loading...</div>}>
-      {/* <FlashNews /> */}
-        <Routes>
-          <Route path="/" element={<Home />} /> {/* ✅ FIXED: Home Route */}
-          <Route path="/service" element={<Service />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<Privacy />} />
-        </Routes>
-      </Suspense>
-      <TawkToChat /> 
-      <ScrollToTopButton />
-      <Footer />
-      </Router>
+      <HelmetProvider>
+        <Router>
+          <Suspense fallback={<div />}> 
+            <Navbar theme={theme} toggleTheme={() => setTheme((t) => (t === "light" ? "dark" : "light"))} />
+          </Suspense>
+          <RouteChangeTracker />
+
+          <Suspense fallback={<div>Loading...</div>}>
+            {/* <FlashNews /> */}
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/service" element={<Service />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<Privacy />} />
+            </Routes>
+          </Suspense>
+
+          <Suspense fallback={null}>
+            <LazyTawk />
+            <ScrollToTopButton />
+            <Footer />
+          </Suspense>
+        </Router>
+      </HelmetProvider>
     </ThemeContext.Provider>
   );
 };

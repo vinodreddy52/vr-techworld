@@ -1,8 +1,10 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { Box, Typography, Button, Container } from "@mui/material";
 //import ThemeToggle from "../components/ThemeToggle";
 import { ArrowForward, DesignServices, BusinessCenter, Campaign } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+//import NextPageSection from "../components/NextPageSection";
 import "./Home.css";
 
 const services = [
@@ -27,7 +29,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-      <Box
+      <Box component="main"
         sx={{
           overflowX: "hidden",
           width: "100%",
@@ -36,6 +38,12 @@ const Home = () => {
           boxSizing: "border-box",
         }}
       >
+      <Helmet>
+        <title>VR TechWorld — Build a sharper digital presence</title>
+        <meta name="description" content="Websites, branding, registration, and marketing services to help small businesses grow online." />
+        <meta name="keywords" content="web design, logo design, business registration, GST, MSME, digital marketing" />
+        <link rel="canonical" href="%PUBLIC_URL%/" />
+      </Helmet>
       {/* Hero */}
       <Box
         id="home"
@@ -62,18 +70,28 @@ const Home = () => {
             overflow: "hidden",
           }}
         >
-          <Box
-            className="home-hero-media"
-            component="img"
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80"
-            alt=""
-            sx={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-            }}
-          />
+            <Box
+              className="home-hero-media"
+              component="img"
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
+              srcSet={`https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=640&q=80 640w,
+                        https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1024&q=80 1024w,
+                        https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80 1600w,
+                        https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80 2000w`}
+              sizes="(max-width:600px) 100vw, (max-width:1200px) 100vw, 1600px"
+              width={1600}
+              height={960}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              alt="Digital business branding and website design concept"
+              sx={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
         </Box>
 
         <Box
@@ -114,19 +132,68 @@ const Home = () => {
             </Typography>
 
             <Typography
+              sx={{
+                fontFamily: '"Outfit", sans-serif',
+                fontWeight: 700,
+                fontSize: "0.85rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "#FFB58A",
+                mb: 1.5,
+              }}
+            >
+              Digital growth partner
+            </Typography>
+
+            <Typography
               className="home-fade-up home-fade-up-delay-2"
               sx={{
                 fontFamily: '"Outfit", sans-serif',
                 fontWeight: 400,
                 fontSize: { xs: "0.95rem", md: "1.05rem" },
-                lineHeight: 1.55,
-                color: "rgba(255,255,255,0.82)",
+                lineHeight: 1.6,
+                color: "rgba(255,255,255,0.88)",
                 mb: 3,
-                maxWidth: 460,
+                maxWidth: 520,
               }}
             >
-              Websites, branding, registration, and ads — practical solutions that help your business look current and move faster.
+              Websites, branding, registration, and growth support so your business looks polished, launches faster, and stays compliant.
             </Typography>
+
+            <Box
+              className="home-fade-up home-fade-up-delay-2"
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 1,
+                mb: 4,
+                maxWidth: 560,
+              }}
+            >
+              {[
+                "Design-led websites",
+                "Brand identity",
+                "Business registration",
+                "Growth campaigns",
+              ].map((item) => (
+                <Box
+                  key={item}
+                  sx={{
+                    px: 2.25,
+                    py: 1,
+                    borderRadius: "999px",
+                    bgcolor: "rgba(255,255,255,0.12)",
+                    color: "#fff",
+                    fontFamily: '"Outfit", sans-serif',
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.01em",
+                  }}
+                >
+                  {item}
+                </Box>
+              ))}
+            </Box>
 
             <Box
               className="home-fade-up home-fade-up-delay-3"
@@ -187,10 +254,101 @@ const Home = () => {
                 View Services
               </Button>
             </Box>
+            <Typography
+              className="home-fade-up home-fade-up-delay-4"
+              sx={{
+                fontFamily: '"Outfit", sans-serif',
+                fontWeight: 500,
+                fontSize: { xs: "0.95rem", md: "1rem" },
+                lineHeight: 1.7,
+                color: "rgba(255,255,255,0.78)",
+                mt: 3,
+                maxWidth: 560,
+              }}
+            >
+              Ready to launch faster with a polished website, trusted business setup, and campaigns that drive leads.
+            </Typography>
           </Box>
         </Container>
       </Box>
 
+      {/* Why choose us */}
+      <Box
+        component="section"
+        sx={{
+          py: { xs: 5, md: 8 },
+          bgcolor: "var(--surface)",
+          width: "100%",
+          maxWidth: "100%",
+        }}
+      >
+        <Container maxWidth="lg">
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+              gap: { xs: 2, md: 3 },
+              mb: { xs: 3, md: 4 },
+            }}
+          >
+            {[
+              {
+                title: "Launch faster",
+                text: "Get your website live quickly with polished design, branding, and registration support.",
+              },
+              {
+                title: "Grow consistently",
+                text: "Digital campaigns, SEO, and analytics help you attract more leads and build trust.",
+              },
+              {
+                title: "Stay compliant",
+                text: "Business registration, GST, and compliance support keeps your company running smoothly.",
+              },
+            ].map((item) => (
+              <Box
+                key={item.title}
+                sx={{
+                  bgcolor: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: "24px",
+                  p: { xs: 3, md: 4 },
+                  boxShadow: "0 32px 80px rgba(15, 27, 56, 0.08)",
+                  backdropFilter: "blur(18px)",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontFamily: '"Syne", sans-serif',
+                    fontWeight: 700,
+                    fontSize: "1.05rem",
+                    mb: 1,
+                    color: "var(--text)",
+                  }}
+                >
+                  {item.title}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: '"Outfit", sans-serif',
+                    color: "var(--muted)",
+                    lineHeight: 1.75,
+                  }}
+                >
+                  {item.text}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+      </Box>
+
+      {/* <NextPageSection
+        title="Want to explore more?"
+        description="See the full range of services we offer and choose the next step for your business." 
+        href="/service"
+        buttonLabel="View Services"
+      />
+ */}
       {/* Services */}
           <Box
         component="section"
@@ -276,14 +434,16 @@ const Home = () => {
                     alignItems: "center",
                     gap: { xs: 2, md: 3 },
                     px: { xs: 2, md: 3 },
-                    py: { xs: 2.25, md: 2.75 },
-                    bgcolor: "var(--surface)",
-                    borderRadius: "10px",
+                    py: { xs: 2.75, md: 3.25 },
+                    bgcolor: "rgba(255,255,255,0.06)",
+                    borderRadius: "18px",
                     borderLeft: "3px solid transparent",
-                    transition: "background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease",
+                    transition: "background-color 0.35s ease, border-color 0.35s ease, transform 0.35s ease",
+                    boxShadow: "0 20px 50px rgba(15, 27, 56, 0.06)",
                     "&:hover": {
-                      bgcolor: "rgba(0,0,0,0.03)",
-                      borderLeftColor: "var(--accent)",
+                      bgcolor: "rgba(255,255,255,0.18)",
+                      borderLeftColor: "#FF6B35",
+                      transform: "translateY(-4px)",
                     },
                     "&:hover .home-service-title": {
                       color: "#FF6B35",
@@ -324,7 +484,7 @@ const Home = () => {
                   </Box>
 
                   <Box>
-                    <Typography
+                            <Typography
                       className="home-service-title"
                       sx={{
                         fontFamily: '"Syne", sans-serif',

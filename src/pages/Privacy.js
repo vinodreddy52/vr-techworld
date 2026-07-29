@@ -1,10 +1,11 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { Box, Container, Typography } from "@mui/material";
 //import ThemeToggle from "../components/ThemeToggle";
 
 const Privacy = () => {
   return (
-    <Box
+    <Box component="main"
       sx={{
         overflowX: "hidden",
         width: "100%",
@@ -18,6 +19,12 @@ const Privacy = () => {
       }}
     >
       <Container maxWidth="lg" sx={{ position: "relative", py: { xs: 3, md: 4 } }}>
+        <Helmet>
+          <title>Privacy Policy — VR TechWorld</title>
+          <meta name="description" content="Read VR TechWorld's privacy policy for website services, marketing, and business registration." />
+          <meta name="keywords" content="privacy policy, data protection, personal information, VR TechWorld" />
+          <link rel="canonical" href="%PUBLIC_URL%/privacy" />
+        </Helmet>
         <Box sx={{ position: "absolute", top: 12, right: 12 }}>
           {/* <ThemeToggle /> */}
         </Box>
@@ -37,7 +44,7 @@ const Privacy = () => {
 
         <Typography sx={{ fontFamily: '"Outfit", sans-serif', color: "var(--muted)", lineHeight: 1.7 }}>
           Your privacy is important to us. This page explains how we collect, use, and protect your
-          information when you use VR Techworld services. We collect only the information necessary
+          information when you use VR TechWorld services. We collect only the information necessary
           to provide services and communicate with you. We do not sell personal data. For requests
           about your data, contact us at vrtechworld19@gmail.com.
         </Typography>

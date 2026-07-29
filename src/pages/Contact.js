@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Contact.css";
-import "./Contact.css";
+import { Helmet } from "react-helmet-async";
 import {
   Container,
   TextField,
@@ -11,9 +11,9 @@ import {
   Tooltip,
   Snackbar,
   Alert,
+  CircularProgress,
 } from "@mui/material";
 import { Email, WhatsApp, Phone, ArrowForward } from "@mui/icons-material";
-import "./Contact.css";
 //import ThemeToggle from "../components/ThemeToggle";
 
 const emptyForm = { name: "", email: "", message: "" };
@@ -21,7 +21,8 @@ const emptyForm = { name: "", email: "", message: "" };
 export default function Contact() {
   const [formData, setFormData] = useState(emptyForm);
   const [errors, setErrors] = useState({});
-  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,6 +47,8 @@ export default function Contact() {
         process.env.REACT_APP_FORMSPREE_ENDPOINT ||
         "https://formspree.io/f/mrenjbwk"; // fallback to provided endpoint
 
+      setLoading(true);
+
       fetch(endpoint, {
         method: "POST",
         headers: {
@@ -55,19 +58,21 @@ export default function Contact() {
         body: JSON.stringify(formData),
       })
         .then(async (res) => {
+          setLoading(false);
           if (res.ok) {
-            setOpen(true);
+            setSnackbar({ open: true, message: "Message sent successfully!", severity: "success" });
             setFormData(emptyForm);
             setErrors({});
           } else {
             const data = await res.json().catch(() => null);
             console.error("Formspree error:", data || res.statusText);
-            alert("Failed to send message. Please try again later.");
+            setSnackbar({ open: true, message: "Failed to send message. Please try again later.", severity: "error" });
           }
         })
         .catch((err) => {
+          setLoading(false);
           console.error("Formspree error:", err);
-          alert("Failed to send message. Please try again later.");
+          setSnackbar({ open: true, message: "Failed to send message. Please try again later.", severity: "error" });
         });
     }
   };
@@ -91,7 +96,7 @@ export default function Contact() {
   };
 
   return (
-    <Box
+    <Box component="main"
       sx={{
         overflowX: "hidden",
         width: "100%",
@@ -104,6 +109,12 @@ export default function Contact() {
       }}
     >
       {/* Header */}
+      <Helmet>
+        <title>Contact VR TechWorld — Website, registration, and marketing help</title>
+        <meta name="description" content="Contact VR TechWorld for web design, branding, business registration, and digital marketing support." />
+        <meta name="keywords" content="contact, website design, GST registration, MSME registration, SEO, digital marketing" />
+        <link rel="canonical" href="%PUBLIC_URL%/contact" />
+      </Helmet>
       <Box
         className="contact-fade-up"
         sx={{
@@ -136,7 +147,13 @@ export default function Contact() {
           />
         </Box>
 
-        <Container maxWidth="lg" sx={{ position: "relative", py: { xs: 3, md: 4 } }}>
+        <Helmet>
+        <title>Contact VR TechWorld — Website, registration, and digital services</title>
+        <meta name="description" content="Contact VR TechWorld for websites, branding, digital marketing, and business registration support." />
+        <meta name="keywords" content="contact, website development, business registration, digital marketing, VR TechWorld" />
+        <link rel="canonical" href="%PUBLIC_URL%/contact" />
+      </Helmet>
+      <Container maxWidth="lg" sx={{ position: "relative", py: { xs: 3, md: 4 } }}>
           <Box sx={{ position: "absolute", top: 12, right: 12 }}>
             {/* <ThemeToggle /> */}
           </Box>
@@ -485,24 +502,35 @@ export default function Contact() {
               <Button
                 variant="contained"
                 type="submit"
-                endIcon={<ArrowForward />}
                 fullWidth
+                disabled={loading}
                 sx={{
                   fontFamily: '"Outfit", sans-serif',
                   fontWeight: 600,
                   textTransform: "none",
-                  bgcolor: "#FF6B35",
+                  bgcolor: "var(--accent)",
                   color: "#fff",
                   py: 1.3,
                   borderRadius: "6px",
                   boxShadow: "none",
-                  "&:hover": {
-                    bgcolor: "#E85A28",
-                    boxShadow: "none",
-                  },
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 1,
+                  "&:hover": { bgcolor: "var(--accent-hover)", boxShadow: "none" },
                 }}
               >
-                Send Message
+                {loading ? (
+                  <>
+                    <CircularProgress color="inherit" size={18} />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Send Message</span>
+                    <ArrowForward />
+                  </>
+                )}
               </Button>
             </Box>
           </Box>
@@ -510,21 +538,21 @@ export default function Contact() {
       </Container>
 
       <Snackbar
-        open={open}
-        autoHideDuration={4000}
-        onClose={() => setOpen(false)}
+        open={snackbar.open}
+        autoHideDuration={5000}
+        onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          onClose={() => setOpen(false)}
-          severity="success"
+          onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
+          severity={snackbar.severity}
           variant="filled"
           sx={{
             fontFamily: '"Outfit", sans-serif',
-            bgcolor: "#1F4068",
+            bgcolor: snackbar.severity === "success" ? "#1F4068" : undefined,
           }}
         >
-          Message sent successfully!
+          {snackbar.message}
         </Alert>
       </Snackbar>
     </Box>

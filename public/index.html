@@ -4,17 +4,32 @@
     <meta charset="utf-8" />
      <link rel="icon" href="./vr_ico.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="theme-color" content="#0B1D36" />
+    <meta name="description" content="VR TechWorld — websites, branding, business registration, and digital marketing services for small businesses." />
+    <meta name="keywords" content="web design, logo design, business registration, GST, MSME, digital marketing, SEO, web hosting" />
+    <meta name="robots" content="index, follow" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="VR TechWorld — Web Design & Business Services" />
+    <meta property="og:description" content="Websites, branding, registration, and marketing services to help your business grow." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="%PUBLIC_URL%/" />
+    <meta property="og:image" content="%PUBLIC_URL%/images/logo.png" />
+    <meta property="og:site_name" content="VR TechWorld" />
+    <meta property="og:locale" content="en_IN" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VR TechWorld — Web Design & Business Services" />
+    <meta name="twitter:description" content="Websites, branding, registration, and marketing services to help your business grow." />
+    <meta name="twitter:image" content="%PUBLIC_URL%/images/logo.png" />
+    <!-- canonical for production deployment -->
+    <link rel="canonical" href="https://vrtechworld.netlify.app/" />
     <link rel="apple-touch-icon" href="./logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="./manifest.json" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -25,12 +40,31 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>VR TechWorld</title>
+    <meta name="google-site-verification" content="YOUR_GOOGLE_SITE_VERIFICATION_CODE" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- JSON-LD structured data for Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "VR TechWorld",
+      "url": "%PUBLIC_URL%/",
+      "logo": "%PUBLIC_URL%/images/logo.png",
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+919042238332",
+        "contactType": "customer service",
+        "email": "vrtechworld19@gmail.com"
+      }]
+    }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

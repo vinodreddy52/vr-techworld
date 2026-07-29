@@ -5,6 +5,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const quickLinks = [
   { label: "Home", to: "/" },
+  { label: "About", to: "/about" },
   { label: "Services", to: "/service" },
   { label: "Pricing", to: "/pricing" },
   { label: "Contact", to: "/contact" },
@@ -59,7 +60,9 @@ const Footer = () => {
             <Box
               component="img"
               src="/images/white_newlogo.png"
-              alt="VR Techworld"
+              alt="VR TechWorld"
+              width={225}
+              height={64}
               sx={{
                 width: { xs: 140, md: 150 },
                 height: "auto",
@@ -122,6 +125,7 @@ const Footer = () => {
                   key={link.to}
                   component={RouterLink}
                   to={link.to}
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   sx={{
                     fontFamily: '"Outfit", sans-serif',
                     fontSize: "0.88rem",
@@ -268,7 +272,7 @@ const Footer = () => {
               color: "rgba(255,255,255,0.5)",
             }}
           >
-            © {new Date().getFullYear()} VR Techworld. All rights reserved.
+            © {new Date().getFullYear()} VR TechWorld. All rights reserved.
           </Typography>
           <Typography
             sx={{

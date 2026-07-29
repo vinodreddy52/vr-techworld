@@ -18,9 +18,11 @@ import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { label: "Home", type: "home" },
+  { label: "About", to: "/about" },
   { label: "Services", to: "/service" },
   { label: "Pricing", to: "/pricing" },
   { label: "Contact", to: "/contact" },
+  // { label: "Privacy", to: "/privacy" },
 ];
 
 const Navbar = ({ theme, toggleTheme }) => {
@@ -67,7 +69,9 @@ const Navbar = ({ theme, toggleTheme }) => {
             <Box
               component="img"
               src="/images/white_newlogo.png"
-              alt="VR Techworld"
+              alt="VR TechWorld"
+              width={225}
+              height={64}
               onClick={() => handleNavigation("home")}
               sx={{
                 width: { xs: 130, sm: 160, md: 180 },
@@ -106,14 +110,14 @@ const Navbar = ({ theme, toggleTheme }) => {
                     textTransform: "none",
                     fontWeight: 500,
                   }}
-                >
+                > 
                   {link.label}
                 </Button>
               )
             )}
           </Box>
 
-          <IconButton color="inherit" onClick={toggleTheme} sx={{ ml: 1 }}>
+          <IconButton color="inherit" onClick={toggleTheme} aria-label="Toggle theme" sx={{ ml: 1 }}>
             {theme === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
 

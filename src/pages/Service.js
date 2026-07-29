@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import {
   Container,
   Typography,
@@ -10,6 +11,9 @@ import {
   DialogTitle,
   TextField,
   IconButton,
+  Snackbar,
+  Alert,
+  CircularProgress,
 } from "@mui/material";
 //import ThemeToggle from "../components/ThemeToggle";
 import {
@@ -31,42 +35,80 @@ const services = [
     title: "Website Design & Hosting",
     description:
       "Modern, mobile-friendly, SEO-ready websites with secure hosting for speed and uptime.",
+    details:
+      "Responsive websites designed for performance, accessibility, and fast delivery so your business can launch with confidence.",
   },
   {
     icon: Brush,
     title: "Logo Design",
     description:
       "Distinctive, high-resolution logos shaped around your brand identity and audience.",
+    details:
+      "Custom brand marks, color palettes, and style guides that make your business memorable across digital and print.",
   },
   {
     icon: Campaign,
     title: "Social Media & Google Ads",
     description:
       "Targeted Facebook, Instagram, and Google campaigns that grow reach and conversions.",
+    details:
+      "Ad strategy, creative assets, and conversion tracking that turn clicks into leads and measurable growth.",
   },
   {
     icon: Receipt,
     title: "Income Tax & TDS Return",
     description:
       "Accurate filing and compliance support for businesses and individuals.",
+    details:
+      "Professional filing, document preparation, and timely submission help you avoid penalties and stay compliant.",
   },
   {
     icon: Assignment,
     title: "GST & LLP Registration",
     description:
       "End-to-end GST and LLP registration handled with government compliance.",
+    details:
+      "From application to certificate, we manage the paperwork and follow-up so you can focus on your business.",
   },
   {
     icon: Business,
     title: "Firm & MSME Registration",
     description:
       "Legal setup for firms and MSMEs so you can unlock loans, exemptions, and subsidies.",
+    details:
+      "Legal registration, documentation, and government filings for startups, partnerships, and small businesses.",
   },
   {
     icon: Work,
     title: "ESI, PF & Labour Compliance",
     description:
       "Payroll-ready support for ESI, PF, and labour formalities your team needs.",
+    details:
+      "Compliance tracking and reporting for employee benefits, contributions, and labour law obligations.",
+  },
+  {
+    icon: Web,
+    title: "SEO & Content Strategy",
+    description:
+      "Keyword-focused SEO and content planning that helps your website rank and attract better traffic.",
+    details:
+      "On-page SEO, content audits, and local search optimization designed to improve visibility and lead quality.",
+  },
+  {
+    icon: Business,
+    title: "Maintenance & Hosting",
+    description:
+      "Managed hosting, security updates, backups, and uptime monitoring for worry-free websites.",
+    details:
+      "Reliable support, daily backups, SSL, and performance tuning to keep your site fast and secure.",
+  },
+  {
+    icon: Campaign,
+    title: "E-commerce Setup & Payments",
+    description:
+      "Shopify/WooCommerce store setup, payment gateway integration, and product launch support.",
+    details:
+      "Online store configuration, checkout flows, and payment integration so you can sell smoothly from day one.",
   },
 ];
 
@@ -98,6 +140,8 @@ const Services = () => {
   const [formData, setFormData] = useState(emptyForm);
   const [errors, setErrors] = useState({});
   const [selectedService, setSelectedService] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
 
   const handleOpen = (serviceTitle = "") => {
     setSelectedService(serviceTitle);
@@ -142,6 +186,8 @@ const Services = () => {
         process.env.REACT_APP_FORMSPREE_ENDPOINT ||
         "https://formspree.io/f/mrenjbwk"; // fallback to provided endpoint
 
+      setLoading(true);
+
       fetch(endpoint, {
         method: "POST",
         headers: {
@@ -151,18 +197,20 @@ const Services = () => {
         body: JSON.stringify(formData),
       })
         .then(async (res) => {
+          setLoading(false);
           if (res.ok) {
-            alert("Message sent successfully!");
+            setSnackbar({ open: true, message: "Message sent successfully!", severity: "success" });
             handleClose();
           } else {
             const data = await res.json().catch(() => null);
             console.error("Formspree error:", data || res.statusText);
-            alert("Failed to send message. Please try again later.");
+            setSnackbar({ open: true, message: "Failed to send message. Please try again later.", severity: "error" });
           }
         })
         .catch((err) => {
+          setLoading(false);
           console.error("Formspree error:", err);
-          alert("Failed to send message. Please try again later.");
+          setSnackbar({ open: true, message: "Failed to send message. Please try again later.", severity: "error" });
         });
     }
   };
@@ -206,6 +254,12 @@ const Services = () => {
           boxSizing: "border-box",
         }}
       >
+        <Helmet>
+          <title>Services — VR TechWorld</title>
+          <meta name="description" content="Explore VR TechWorld services: website design, registration, SEO, hosting, ads, and compliance support." />
+          <meta name="keywords" content="website design, SEO, business registration, GST, MSME, hosting, digital marketing" />
+          <link rel="canonical" href="%PUBLIC_URL%/service" />
+        </Helmet>
         {/* Header — full-bleed bg, constrained content */}
         <Box
           className="service-fade-up"
@@ -442,6 +496,66 @@ const Services = () => {
           </Box>
         </Container>
 
+        <Container maxWidth="lg" sx={{ width: "100%", py: { xs: 4, md: 5 } }}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+              gap: { xs: 2, md: 2.5 },
+            }}
+          >
+            {[
+              {
+                title: "Launch quickly",
+                description:
+                  "Website and business registration services that help you start faster with fewer delays.",
+              },
+              {
+                title: "Grow with clarity",
+                description:
+                  "Digital campaigns, SEO, and analytics that make your next step measurable and effective.",
+              },
+              {
+                title: "Stay supported",
+                description:
+                  "Maintenance, compliance, and hosting plans so your business keeps running smoothly.",
+              },
+            ].map((item) => (
+              <Box
+                key={item.title}
+                sx={{
+                  bgcolor: "var(--card-bg)",
+                  border: "1px solid var(--card-border)",
+                  borderRadius: "14px",
+                  p: { xs: 3, md: 3.5 },
+                  minHeight: 170,
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontFamily: '"Syne", sans-serif',
+                    fontWeight: 700,
+                    fontSize: "1.05rem",
+                    mb: 1,
+                  }}
+                >
+                  {item.title}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: '"Outfit", sans-serif',
+                    fontSize: "0.95rem",
+                    color: "var(--muted)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {item.description}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+
         {/* CTA — full-bleed bg, constrained content */}
         <Box
           sx={{
@@ -552,19 +666,6 @@ const Services = () => {
           }}
         >
           Get a Free Consultation
-          {selectedService ? (
-            <Typography
-              sx={{
-                fontFamily: '"Outfit", sans-serif',
-                fontSize: "0.88rem",
-                color: "rgba(11, 29, 54, 0.6)",
-                mt: 0.5,
-                fontWeight: 400,
-              }}
-            >
-              About: {selectedService}
-            </Typography>
-          ) : null}
           <IconButton
             onClick={handleClose}
             aria-label="Close"
@@ -587,6 +688,31 @@ const Services = () => {
             borderColor: "rgba(11, 29, 54, 0.08)",
           }}
         >
+          {selectedService && (
+            <Box sx={{ mb: 2 }}>
+              <Typography
+                sx={{
+                  fontFamily: '"Syne", sans-serif',
+                  fontWeight: 700,
+                  fontSize: "1rem",
+                  color: "var(--text)",
+                }}
+              >
+                About: {selectedService}
+              </Typography>
+              <Typography
+                sx={{
+                  fontFamily: '"Outfit", sans-serif',
+                  fontSize: "0.9rem",
+                  color: "rgba(11, 29, 54, 0.72)",
+                  lineHeight: 1.6,
+                  mt: 1,
+                }}
+              >
+                {services.find((item) => item.title === selectedService)?.details}
+              </Typography>
+            </Box>
+          )}
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -670,26 +796,52 @@ const Services = () => {
               <Button
                 type="submit"
                 variant="contained"
+                disabled={loading}
                 sx={{
                   fontFamily: '"Outfit", sans-serif',
                   fontWeight: 600,
                   textTransform: "none",
-                  bgcolor: "#FF6B35",
+                  bgcolor: "var(--accent)",
                   borderRadius: "6px",
                   px: 3,
                   boxShadow: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 1,
                   "&:hover": {
-                    bgcolor: "#E85A28",
+                    bgcolor: "var(--accent-hover)",
                     boxShadow: "none",
                   },
                 }}
               >
-                Submit
+                {loading ? (
+                  <>
+                    <CircularProgress color="inherit" size={18} />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </DialogActions>
           </Box>
         </DialogContent>
       </Dialog>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={5000}
+        onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
+          severity={snackbar.severity}
+          variant="filled"
+          sx={{ fontFamily: '"Outfit", sans-serif' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

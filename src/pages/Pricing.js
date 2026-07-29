@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import {
   Container,
   Typography,
@@ -89,14 +90,14 @@ const Pricing = () => {
   const handleProceed = () => {
     if (!selectedPlan) return;
     const message = encodeURIComponent(
-      `Hi VR Techworld, I'm interested in the ${selectedPlan.title} plan (${selectedPlan.price}).`
+      `Hi VR TechWorld, I'm interested in the ${selectedPlan.title} plan (${selectedPlan.price}).`
     );
     window.open(`https://wa.me/919042238332?text=${message}`, "_blank");
     handleClose();
   };
 
   return (
-    <Box
+    <Box component="main"
       sx={{
         overflowX: "hidden",
         width: "100%",
@@ -108,6 +109,13 @@ const Pricing = () => {
         boxSizing: "border-box",
       }}
     >
+      <Helmet>
+        <title>Pricing — VR TechWorld</title>
+        <meta name="description" content="See the upcoming pricing plans from VR TechWorld for websites, hosting, SEO, and business registration services." />
+        <meta name="keywords" content="pricing, website packages, business registration pricing, SEO plans, hosting costs" />
+        <link rel="canonical" href="%PUBLIC_URL%/pricing" />
+      </Helmet>
+
       {/* Header */}
       <Box
         className="pricing-fade-up"
