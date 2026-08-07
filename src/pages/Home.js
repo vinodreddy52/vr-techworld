@@ -73,18 +73,13 @@ const Home = () => {
             <Box
               className="home-hero-media"
               component="img"
-              src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
-              srcSet={`https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=640&q=80 640w,
-                        https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1024&q=80 1024w,
-                        https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80 1600w,
-                        https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80 2000w`}
-              sizes="(max-width:600px) 100vw, (max-width:1200px) 100vw, 1600px"
+              src="/images/hero-bg.svg"
+              alt="Abstract digital branding background"
               width={1600}
               height={960}
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              alt="Digital business branding and website design concept"
               sx={{
                 width: "100%",
                 height: "100%",
