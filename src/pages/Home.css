@@ -29,6 +29,7 @@
 
 .home-hero-media {
   animation: homeKenBurns 22s ease-out forwards;
+  filter: saturate(1.05) contrast(1.02);
 }
 
 .home-fade-up {

@@ -255,8 +255,8 @@ const Services = () => {
         }}
       >
         <Helmet>
-          <title>Services — VR TechWorld</title>
-          <meta name="description" content="Explore VR TechWorld services: website design, registration, SEO, hosting, ads, and compliance support." />
+          <title>Services — VR DIGITAL & CORPORATE HUB</title>
+          <meta name="description" content="Explore VR DIGITAL & CORPORATE HUB services: website design, registration, SEO, hosting, ads, and compliance support." />
           <meta name="keywords" content="website design, SEO, business registration, GST, MSME, hosting, digital marketing" />
           <link rel="canonical" href="%PUBLIC_URL%/service" />
         </Helmet>

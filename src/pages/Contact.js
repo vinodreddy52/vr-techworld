@@ -110,8 +110,8 @@ export default function Contact() {
     >
       {/* Header */}
       <Helmet>
-        <title>Contact VR TechWorld — Website, registration, and marketing help</title>
-        <meta name="description" content="Contact VR TechWorld for web design, branding, business registration, and digital marketing support." />
+        <title>Contact VR DIGITAL & CORPORATE HUB — Website, registration, and marketing help</title>
+        <meta name="description" content="Contact VR DIGITAL & CORPORATE HUB for web design, branding, business registration, and digital marketing support." />
         <meta name="keywords" content="contact, website design, GST registration, MSME registration, SEO, digital marketing" />
         <link rel="canonical" href="%PUBLIC_URL%/contact" />
       </Helmet>
@@ -148,9 +148,9 @@ export default function Contact() {
         </Box>
 
         <Helmet>
-        <title>Contact VR TechWorld — Website, registration, and digital services</title>
-        <meta name="description" content="Contact VR TechWorld for websites, branding, digital marketing, and business registration support." />
-        <meta name="keywords" content="contact, website development, business registration, digital marketing, VR TechWorld" />
+        <title>Contact VR DIGITAL & CORPORATE HUB — Website, registration, and digital services</title>
+        <meta name="description" content="Contact VR DIGITAL & CORPORATE HUB for websites, branding, digital marketing, and business registration support." />
+        <meta name="keywords" content="contact, website development, business registration, digital marketing, VR DIGITAL & CORPORATE HUB" />
         <link rel="canonical" href="%PUBLIC_URL%/contact" />
       </Helmet>
       <Container maxWidth="lg" sx={{ position: "relative", py: { xs: 3, md: 4 } }}>

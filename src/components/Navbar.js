@@ -68,13 +68,13 @@ const Navbar = ({ theme, toggleTheme }) => {
           <Box sx={{ flexGrow: 1, minWidth: 0 }}>
             <Box
               component="img"
-              src="/images/white_newlogo.png"
-              alt="VR TechWorld"
+              src="/images/vr_digital_logo_singleline.svg"
+              alt="VR DIGITAL & CORPORATE HUB"
               width={225}
               height={64}
               onClick={() => handleNavigation("home")}
               sx={{
-                width: { xs: 130, sm: 160, md: 180 },
+                width: { xs: 130, sm: 200, md: 240 },
                 maxWidth: "100%",
                 height: "auto",
                 display: "block",

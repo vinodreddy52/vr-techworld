@@ -4,4 +4,4 @@ Disallow:
  
 # IMPORTANT: Replace the example sitemap URL below with your site's absolute URL before deploying.
 # Many crawlers expect an absolute URL here; Lighthouse flags a relative path as invalid.
-Sitemap: https://vrtechworld.netlify.app/sitemap.xml
+Sitemap: https://vrdigitalcorporate.netlify.app/sitemap.xml

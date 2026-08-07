@@ -59,8 +59,8 @@ const Footer = () => {
           <Box sx={{ gridColumn: { xs: "1", sm: "1 / -1", md: "auto" }, maxWidth: 300 }}>
             <Box
               component="img"
-              src="/images/white_newlogo.png"
-              alt="VR TechWorld"
+              src="/images/vr_digital_logo_singleline.svg"
+              alt="VR DIGITAL & CORPORATE HUB"
               width={225}
               height={64}
               sx={{
@@ -272,7 +272,7 @@ const Footer = () => {
               color: "rgba(255,255,255,0.5)",
             }}
           >
-            © {new Date().getFullYear()} VR TechWorld. All rights reserved.
+            © {new Date().getFullYear()} VR DIGITAL & CORPORATE HUB. All rights reserved.
           </Typography>
           <Typography
             sx={{

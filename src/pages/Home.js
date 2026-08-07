@@ -39,7 +39,7 @@ const Home = () => {
         }}
       >
       <Helmet>
-        <title>VR TechWorld — Build a sharper digital presence</title>
+        <title>VR DIGITAL & CORPORATE HUB — Build a sharper digital presence</title>
         <meta name="description" content="Websites, branding, registration, and marketing services to help small businesses grow online." />
         <meta name="keywords" content="web design, logo design, business registration, GST, MSME, digital marketing" />
         <link rel="canonical" href="%PUBLIC_URL%/" />

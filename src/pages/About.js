@@ -27,9 +27,9 @@ const About = () => {
       }}
     >
       <Helmet>
-        <title>About Us — VR TechWorld</title>
-        <meta name="description" content="Learn about VR TechWorld, our mission, services, and why small businesses choose us for web design, business registration, and digital marketing." />
-        <meta name="keywords" content="about VR TechWorld, web design agency, business registration services, digital marketing agency" />
+        <title>About Us — VR DIGITAL & CORPORATE HUB</title>
+        <meta name="description" content="Learn about VR DIGITAL & CORPORATE HUB, our mission, services, and why small businesses choose us for web design, business registration, and digital marketing." />
+        <meta name="keywords" content="about VR DIGITAL & CORPORATE HUB, web design agency, business registration services, digital marketing agency" />
         <link rel="canonical" href="%PUBLIC_URL%/about" />
       </Helmet>
 
@@ -57,7 +57,7 @@ const About = () => {
             mb: 4,
           }}
         >
-          VR TechWorld supports small businesses, startups, and entrepreneurs with a single partner for web design, compliance, marketing, and registration. We combine fast delivery, clear pricing, and practical digital services suited to local business needs.
+          VR DIGITAL & CORPORATE HUB supports small businesses, startups, and entrepreneurs with a single partner for web design, compliance, marketing, and registration. We combine fast delivery, clear pricing, and practical digital services suited to local business needs.
         </Typography>
 
         <Box

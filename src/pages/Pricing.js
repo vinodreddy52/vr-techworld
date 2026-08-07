@@ -90,7 +90,7 @@ const Pricing = () => {
   const handleProceed = () => {
     if (!selectedPlan) return;
     const message = encodeURIComponent(
-      `Hi VR TechWorld, I'm interested in the ${selectedPlan.title} plan (${selectedPlan.price}).`
+      `Hi VR DIGITAL & CORPORATE HUB, I'm interested in the ${selectedPlan.title} plan (${selectedPlan.price}).`
     );
     window.open(`https://wa.me/919042238332?text=${message}`, "_blank");
     handleClose();
@@ -110,8 +110,8 @@ const Pricing = () => {
       }}
     >
       <Helmet>
-        <title>Pricing — VR TechWorld</title>
-        <meta name="description" content="See the upcoming pricing plans from VR TechWorld for websites, hosting, SEO, and business registration services." />
+        <title>Pricing — VR DIGITAL & CORPORATE HUB</title>
+        <meta name="description" content="See the upcoming pricing plans from VR DIGITAL & CORPORATE HUB for websites, hosting, SEO, and business registration services." />
         <meta name="keywords" content="pricing, website packages, business registration pricing, SEO plans, hosting costs" />
         <link rel="canonical" href="%PUBLIC_URL%/pricing" />
       </Helmet>
@@ -264,7 +264,7 @@ const Pricing = () => {
             <Button
               variant="contained"
               endIcon={<ArrowForward />}
-              href="https://wa.me/919042238332?text=Hi%20VR%20Techworld%2C%20I%27d%20like%20a%20custom%20pricing%20quote."
+              href="https://wa.me/919042238332?text=Hi%20VR%20DIGITAL%20&%20CORPORATE%20HUB%2C%20I%27d%20like%20a%20custom%20pricing%20quote."
               target="_blank"
               rel="noopener noreferrer"
               sx={{
