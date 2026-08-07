@@ -185,14 +185,14 @@ const Pricing = () => {
             sx={{
               fontFamily: '"Outfit", sans-serif',
               fontSize: { xs: "0.9rem", md: "1rem" },
-              color: "rgba(255,255,255,0.72)",
-              lineHeight: 1.55,
-              maxWidth: 520,
+              color: "rgba(255,255,255,0.78)",
+              lineHeight: 1.6,
+              maxWidth: 620,
             }}
           >
             {SHOW_PRICING_PLANS
-              ? "Choose a package that fits your business — clear pricing, no clutter."
-              : "We’re finalizing packages. Reach out anytime for a custom quote."}
+              ? "Choose a package that fits your business — clear pricing, practical features, and no unnecessary extras."
+              : "We customize quotes for websites, SEO, hosting, branding, and registration support so every client gets a plan that matches their goals."}
           </Typography>
         </Container>
       </Box>
@@ -259,7 +259,7 @@ const Pricing = () => {
                 }}
               >
               Meanwhile, tell us what you need and we’ll share a tailored quote for
-              your project.
+              your website, business setup, SEO, or digital growth project.
             </Typography>
             <Button
               variant="contained"

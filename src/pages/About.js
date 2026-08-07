@@ -57,7 +57,7 @@ const About = () => {
             mb: 4,
           }}
         >
-          VR DIGITAL & CORPORATE HUB supports small businesses, startups, and entrepreneurs with a single partner for web design, compliance, marketing, and registration. We combine fast delivery, clear pricing, and practical digital services suited to local business needs.
+          VR DIGITAL & CORPORATE HUB supports small businesses, startups, and entrepreneurs with a single partner for web design, compliance, digital marketing, and registration. We focus on practical solutions, faster execution, and dependable support so clients can launch confidently and grow without juggling too many vendors.
         </Typography>
 
         <Box
@@ -227,7 +227,7 @@ const About = () => {
             },
             {
               title: "Why Choose Us",
-              text: "One partner for website launch, business compliance, and marketing support in India.",
+              text: "One partner for website launch, business compliance, and marketing support in India with a clear, client-first approach.",
             },
           ].map((item) => (
             <Box

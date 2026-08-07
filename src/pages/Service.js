@@ -340,11 +340,12 @@ const Services = () => {
                   sx={{
                     fontFamily: '"Outfit", sans-serif',
                     fontSize: { xs: "0.88rem", md: "0.95rem" },
-                    color: "rgba(255,255,255,0.7)",
-                    lineHeight: 1.5,
+                    color: "rgba(255,255,255,0.78)",
+                    lineHeight: 1.6,
+                    maxWidth: 640,
                   }}
                 >
-                  Tap a service to enquire — or book a free consultation.
+                  From fast-loading websites and branding to registration, compliance, and growth campaigns, we help startups, SMEs, and service businesses move forward with fewer delays and stronger results.
                 </Typography>
               </Box>
 
@@ -370,6 +371,39 @@ const Services = () => {
             boxSizing: "border-box",
           }}
         >
+          <Box
+            className="service-fade-up"
+            sx={{
+              bgcolor: "var(--card-bg)",
+              border: "1px solid var(--card-border)",
+              borderRadius: "16px",
+              p: { xs: 2.25, md: 3 },
+              mb: { xs: 2.5, md: 3 },
+              boxShadow: "0 10px 30px rgba(15, 23, 42, 0.06)",
+            }}
+          >
+            <Typography
+              sx={{
+                fontFamily: '"Syne", sans-serif',
+                fontWeight: 700,
+                fontSize: { xs: "1rem", md: "1.15rem" },
+                mb: 1,
+              }}
+            >
+              Built for business owners who need reliable support
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: '"Outfit", sans-serif',
+                fontSize: { xs: "0.92rem", md: "0.97rem" },
+                color: "var(--muted)",
+                lineHeight: 1.7,
+              }}
+            >
+              We combine website performance, search visibility, legal setup, and digital growth planning into one practical service experience so clients can focus on running the business rather than juggling separate vendors.
+            </Typography>
+          </Box>
+
           <Box
             className="service-fade-up service-fade-up-delay-1"
             sx={{
@@ -508,17 +542,17 @@ const Services = () => {
               {
                 title: "Launch quickly",
                 description:
-                  "Website and business registration services that help you start faster with fewer delays.",
+                  "Website and business registration services that help you start faster with fewer delays, cleaner paperwork, and a stronger first impression.",
               },
               {
                 title: "Grow with clarity",
                 description:
-                  "Digital campaigns, SEO, and analytics that make your next step measurable and effective.",
+                  "Digital campaigns, SEO, and performance-focused strategies that make your next step measurable, visible, and effective.",
               },
               {
                 title: "Stay supported",
                 description:
-                  "Maintenance, compliance, and hosting plans so your business keeps running smoothly.",
+                  "Maintenance, compliance, and hosting plans so your business keeps running smoothly with less stress and better uptime.",
               },
             ].map((item) => (
               <Box

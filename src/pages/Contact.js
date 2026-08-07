@@ -187,13 +187,12 @@ export default function Contact() {
             sx={{
               fontFamily: '"Outfit", sans-serif',
               fontSize: { xs: "0.9rem", md: "1rem" },
-              color: "rgba(255,255,255,0.72)",
-              lineHeight: 1.55,
-              maxWidth: 520,
+              color: "rgba(255,255,255,0.78)",
+              lineHeight: 1.6,
+              maxWidth: 620,
             }}
           >
-            Website design, hosting, branding, ads, and business registration —
-            tell us what you need.
+            Whether you need a fast-loading website, business registration help, SEO support, or a growth-focused campaign, we’ll guide you with practical next steps.
           </Typography>
         </Container>
       </Box>
