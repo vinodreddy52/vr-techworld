@@ -27,10 +27,10 @@ const About = () => {
       }}
     >
       <Helmet>
-        <title>About Us — VR DIGITAL & CORPORATE HUB</title>
-        <meta name="description" content="Learn about VR DIGITAL & CORPORATE HUB, our mission, services, and why small businesses choose us for web design, business registration, and digital marketing." />
-        <meta name="keywords" content="about VR DIGITAL & CORPORATE HUB, web design agency, business registration services, digital marketing agency" />
-        <link rel="canonical" href="%PUBLIC_URL%/about" />
+        <title>About VR DIGITAL & CORPORATE HUB — Empowering the Digital Future</title>
+        <meta name="description" content="Learn about VR DIGITAL & CORPORATE HUB, our mission, and how we help businesses with web design, registration, branding, and digital growth solutions." />
+        <meta name="keywords" content="about VR DIGITAL & CORPORATE HUB, web design agency, business registration services, digital marketing agency, branding agency" />
+        <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/about" />
       </Helmet>
 
       <Container maxWidth="lg" sx={{ py: { xs: 3, md: 4 } }}>

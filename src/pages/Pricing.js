@@ -111,9 +111,9 @@ const Pricing = () => {
     >
       <Helmet>
         <title>Pricing — VR DIGITAL & CORPORATE HUB</title>
-        <meta name="description" content="See the upcoming pricing plans from VR DIGITAL & CORPORATE HUB for websites, hosting, SEO, and business registration services." />
-        <meta name="keywords" content="pricing, website packages, business registration pricing, SEO plans, hosting costs" />
-        <link rel="canonical" href="%PUBLIC_URL%/pricing" />
+        <meta name="description" content="Request pricing from VR DIGITAL & CORPORATE HUB for websites, branding, SEO, business registration, and digital growth services." />
+        <meta name="keywords" content="pricing, website packages, business registration pricing, SEO plans, hosting costs, branding packages" />
+        <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/pricing" />
       </Helmet>
 
       {/* Header */}

@@ -39,10 +39,10 @@ const Home = () => {
         }}
       >
       <Helmet>
-        <title>VR DIGITAL & CORPORATE HUB — Build a sharper digital presence</title>
-        <meta name="description" content="Websites, branding, registration, and marketing services to help small businesses grow online." />
-        <meta name="keywords" content="web design, logo design, business registration, GST, MSME, digital marketing" />
-        <link rel="canonical" href="%PUBLIC_URL%/" />
+        <title>VR DIGITAL & CORPORATE HUB — Empowering the Digital Future</title>
+        <meta name="description" content="VR DIGITAL & CORPORATE HUB helps businesses grow with web design, branding, registration, SEO, and digital marketing solutions." />
+        <meta name="keywords" content="web design, logo design, business registration, GST, MSME, digital marketing, SEO, branding" />
+        <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/" />
       </Helmet>
       {/* Hero */}
       <Box
@@ -131,13 +131,13 @@ const Home = () => {
                 fontFamily: '"Outfit", sans-serif',
                 fontWeight: 700,
                 fontSize: "0.85rem",
-                letterSpacing: "0.3em",
+                letterSpacing: "0.24em",
                 textTransform: "uppercase",
                 color: "#FFB58A",
                 mb: 1.5,
               }}
             >
-              Digital growth partner
+              Empowering the Digital Future
             </Typography>
 
             <Typography

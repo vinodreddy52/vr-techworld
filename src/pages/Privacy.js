@@ -21,9 +21,9 @@ const Privacy = () => {
       <Container maxWidth="lg" sx={{ position: "relative", py: { xs: 3, md: 4 } }}>
         <Helmet>
           <title>Privacy Policy — VR DIGITAL & CORPORATE HUB</title>
-          <meta name="description" content="Read VR DIGITAL & CORPORATE HUB's privacy policy for website services, marketing, and business registration." />
-          <meta name="keywords" content="privacy policy, data protection, personal information, VR DIGITAL & CORPORATE HUB" />
-          <link rel="canonical" href="%PUBLIC_URL%/privacy" />
+          <meta name="description" content="Read VR DIGITAL & CORPORATE HUB's privacy policy covering website services, business registration, marketing support, and customer data handling." />
+          <meta name="keywords" content="privacy policy, data protection, personal information, VR DIGITAL & CORPORATE HUB, digital services privacy" />
+          <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/privacy" />
         </Helmet>
         <Box sx={{ position: "absolute", top: 12, right: 12 }}>
           {/* <ThemeToggle /> */}

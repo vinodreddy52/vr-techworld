@@ -256,9 +256,9 @@ const Services = () => {
       >
         <Helmet>
           <title>Services — VR DIGITAL & CORPORATE HUB</title>
-          <meta name="description" content="Explore VR DIGITAL & CORPORATE HUB services: website design, registration, SEO, hosting, ads, and compliance support." />
-          <meta name="keywords" content="website design, SEO, business registration, GST, MSME, hosting, digital marketing" />
-          <link rel="canonical" href="%PUBLIC_URL%/service" />
+          <meta name="description" content="Explore VR DIGITAL & CORPORATE HUB services: website design, SEO, branding, business registration, hosting, ads, and compliance support." />
+          <meta name="keywords" content="website design, SEO, business registration, GST, MSME, hosting, digital marketing, web development" />
+          <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/service" />
         </Helmet>
         {/* Header — full-bleed bg, constrained content */}
         <Box
