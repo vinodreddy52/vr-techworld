@@ -5,8 +5,12 @@ import ThemeContext from "./ThemeContext";
 const Navbar = lazy(() => import("./components/Navbar"));
 const Footer = lazy(() => import("./components/Footer"));
 const ScrollToTopButton = lazy(() => import("./components/ScrollToTopButton"));
-const LazyTawk = lazy(() => import('./components/LazyTawk'));
+//const LazyTawk = lazy(() => import('./components/LazyTawk'));
 //import FlashNews from "./components/FlashNews";
+//import ChatWidget from "./components/ChatWidget";
+const ChatWidget = lazy(() => import('./components/ChatWidget'));
+const WidgetBoundary = lazy(() => import('./components/WidgetBoundary'));
+
 
 // Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home"));
@@ -74,7 +78,10 @@ const App = () => {
           </Suspense>
 
           <Suspense fallback={null}>
-            <LazyTawk />
+            {/* <LazyTawk /> */}
+            <WidgetBoundary>
+              <ChatWidget/>
+            </WidgetBoundary>
             <ScrollToTopButton />
             <Footer />
           </Suspense>

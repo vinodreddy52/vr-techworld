@@ -59,7 +59,7 @@ const Footer = () => {
           <Box sx={{ gridColumn: { xs: "1", sm: "1 / -1", md: "auto" }, maxWidth: 300 }}>
             <Box
               component="img"
-              src="/images/vr_digital_logo_singleline.svg"
+              src="/images/VR Digital & Corporate Logo.png"
               alt="VR DIGITAL & CORPORATE HUB"
               width={225}
               height={64}

@@ -68,7 +68,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           <Box sx={{ flexGrow: 1, minWidth: 0 }}>
             <Box
               component="img"
-              src="/images/vr_digital_logo_singleline.svg"
+              src="/images/VR Digital & Corporate Logo.png"
               alt="VR DIGITAL & CORPORATE HUB"
               width={225}
               height={64}
