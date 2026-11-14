@@ -58,7 +58,7 @@
     "rollup": "^2.80.0",
     "shell-quote": "^1.10.0",
     "flatted": "^3.4.3",
-    "nth-check": "^3.0.1",
+    "nth-check": "^2.1.1",
     "node-forge": "^1.4.0",
     "@babel/plugin-transform-modules-systemjs": "^7.25.0",
     "@remix-run/router": "^1.23.3",
