@@ -1,7 +1,7 @@
 import { SERVICES, FAQS, GUIDE, UI } from "./botData";
 
 export const serviceById = (id) => SERVICES.find((s) => s.id === id);
-export const MENU = ["services", "guide", "book", "quote", "process", "pricing", "faqs", "contact"];
+export const MENU = ["services", "guide", "book", "quote", "live", "process", "pricing", "faqs", "contact"];
 
 const AFTER = ["services", "quote", "book", "menu"];
 const SVC_CHIPS = ["quote", "book", "services", "menu"];
@@ -9,6 +9,7 @@ const M = (type, content = "", extra = {}) => ({ type, content, ...extra });
 
 // Keywords in English + Telugu + Hindi (matched whatever language is selected)
 const KW = {
+  live: ["live chat", "live agent", "talk to agent", "talk to human", "human agent", "real person", "talk to someone", "speak to someone", "లైవ్ చాట్", "లైవ్ ఏజెంట్", "लाइव चैट", "लाइव एजेंट", "एजेंट से बात", "इंसान से बात"],
   menu: ["menu", "main menu", "start over", "restart", "back", "మెనూ", "मेन्यू", "मेनू"],
   hello: ["hi", "hello", "hey", "hii", "namaste", "hai", "good morning", "good evening", "హలో", "నమస్కారం", "నమస్తే", "हेलो", "हैलो", "नमस्ते", "हाय"],
   thanks: ["thanks", "thank you", "thx", "thank u", "ధన్యవాదాలు", "థాంక్స్", "धन्यवाद", "शुक्रिया", "थैंक्स"],
@@ -70,6 +71,7 @@ export function reply(lang, { text = "", action, arg } = {}) {
     case "quote": return form("quote", arg);
     case "book": return form("book", arg);
     case "contact": return [M("contact", u.contactQ, { chips: ["quote", "book", "menu"] })];
+    case "live": return [M("live", u.liveAsk, { chips: ["quote", "book", "contact", "menu"] })];
     default: break;
   }
 
@@ -80,6 +82,7 @@ export function reply(lang, { text = "", action, arg } = {}) {
   if (has(t, KW.menu)) return [M("text", u.menuQ, { chips: MENU })];
   if (words <= 3 && has(t, KW.hello)) return [M("text", u.hello, { chips: MENU })];
   if (has(t, KW.thanks)) return [M("text", u.thanks, { chips: AFTER })];
+  if (has(t, KW.live)) return [M("live", u.liveAsk, { chips: ["quote", "book", "contact", "menu"] })];
   if (has(t, KW.book)) return form("book", matchService(t)?.id);
   if (has(t, KW.quote)) return form("quote", matchService(t)?.id);
   if (has(t, KW.price)) return [M("text", FAQS[0][lang][1], { chips: ["quote", "book", "contact", "menu"] })];

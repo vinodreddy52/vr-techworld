@@ -1,4 +1,4 @@
-:root { --cw-navy:#0B1D36; --cw-accent:#25a56a; --cw-bg:#f4f6f9; }
+:root { --cw-navy:#0B1D36; --cw-accent:#25a56a; --cw-wa:#25D366; --cw-wa-dark:#1ebe5a; --cw-bg:#f4f6f9; }
 
 /* ---------- Floating button ---------- */
 .cw-fab{position:fixed;right:20px;bottom:20px;width:60px;height:60px;border-radius:50%;border:none;padding:0;
@@ -24,6 +24,7 @@
   font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;animation:cw-pop .25s ease;
   color:#1a1a1a;text-align:left}
 .cw-box *{box-sizing:border-box}
+.cw-ico{flex:none;display:block}
 
 /* header */
 .cw-head{background:var(--cw-navy);color:#fff;padding:12px;display:flex;align-items:center;gap:8px}
@@ -40,6 +41,22 @@
 .cw-lang{display:flex;align-items:center;gap:6px;padding:6px 12px;background:#fff;border-bottom:1px solid #e3e6ea;font-size:13px}
 .cw-lang button{border:1px solid #d5d9df;background:#fff;border-radius:14px;padding:4px 12px;cursor:pointer;font-size:13px;color:var(--cw-navy)}
 .cw-lang button.on{background:var(--cw-navy);color:#fff;border-color:var(--cw-navy)}
+
+/* highlighted live-agent button in the top bar */
+.cw-lang{flex-wrap:wrap;row-gap:6px}
+.cw-lang .cw-live-top{margin-left:auto;display:flex;align-items:center;gap:7px;background:var(--cw-accent);
+  color:#fff;border:none;font-weight:700;padding:5px 13px;border-radius:14px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(37,165,106,.45)}
+.cw-lang .cw-live-top:hover:not(:disabled){background:#1e8f5a}
+.cw-lang .cw-live-top:disabled{opacity:.7;cursor:wait}
+.cw-live-top .cw-live-dot{background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.8);animation:cw-live-w 1.8s infinite}
+@keyframes cw-live-w{0%{box-shadow:0 0 0 0 rgba(255,255,255,.8)}70%{box-shadow:0 0 0 7px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+
+/* highlighted live-agent chip in the menu */
+.cw-chips button.live{background:var(--cw-accent);border-color:var(--cw-accent);color:#fff;font-weight:600;
+  display:inline-flex;align-items:center;gap:7px}
+.cw-chips button.live::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;flex:none}
+.cw-chips button.live:hover{background:#1e8f5a;border-color:#1e8f5a}
 
 /* messages */
 .cw-msgs{flex:1;overflow-y:auto;padding:14px 12px;background:var(--cw-bg);
@@ -91,10 +108,14 @@
 .cw-step{display:flex;gap:10px;padding:6px 0}
 .cw-num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--cw-navy);color:#fff;
   display:grid;place-items:center;font-size:12px;font-weight:700}
-.cw-cbtn{display:block;padding:11px;margin-bottom:8px;border-radius:10px;border:1px solid #d9dee5;
-  text-decoration:none;color:var(--cw-navy);font-weight:600;font-size:14px;text-align:center;background:#fff}
+
+/* link-style buttons (contact card + after-send WhatsApp) */
+.cw-cbtn{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 14px;margin-bottom:8px;
+  border-radius:12px;border:1px solid #d9dee5;text-decoration:none;color:var(--cw-navy);
+  font-weight:600;font-size:14px;text-align:center;background:#fff;width:100%}
 .cw-cbtn:last-child{margin-bottom:0}
-.cw-cbtn.wa{background:var(--cw-accent);border-color:var(--cw-accent);color:#fff}
+.cw-cbtn.wa{background:var(--cw-wa);border-color:var(--cw-wa);color:#fff;box-shadow:0 2px 8px rgba(37,211,102,.35)}
+.cw-cbtn.wa:hover{background:var(--cw-wa-dark);border-color:var(--cw-wa-dark)}
 
 /* forms */
 .cw-form{background:#fff;border:1px solid #e3e6ea;border-radius:14px;padding:14px;
@@ -103,16 +124,34 @@
 .cw-form input,.cw-form select{border:1px solid #d5d9df;border-radius:10px;padding:10px 12px;
   font-size:14px;outline:none;background:#fff;color:#1a1a1a;width:100%}
 .cw-form input:focus,.cw-form select:focus{border-color:var(--cw-navy)}
-.cw-form > button[type="submit"]{background:var(--cw-accent);color:#fff;border:none;border-radius:10px;
-  padding:11px;font-size:14.5px;font-weight:600;cursor:pointer}
-.cw-form button:disabled{opacity:.6;cursor:not-allowed}
 .cw-lbl{font-size:12.5px;color:#55606d;margin-bottom:-4px}
-.cw-consent{color:#6b7480;font-size:11.5px;line-height:1.35}
+.cw-consent{color:#6b7480;font-size:11.5px;line-height:1.35;text-align:center}
 .cw-slots{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .cw-slots button{padding:8px;border:1.5px solid #d5d9df;border-radius:10px;background:#fff;
   font-size:12.5px;font-weight:500;cursor:pointer;color:var(--cw-navy)}
 .cw-slots button.on{background:var(--cw-navy);color:#fff;border-color:var(--cw-navy)}
 .cw-error{color:#c62828;font-size:12.5px}
+
+/* two send options: email + WhatsApp */
+.cw-actions{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.cw-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:13px 14px;border:none;border-radius:12px;font-size:15px;font-weight:600;
+  line-height:1.2;cursor:pointer;transition:background .15s,transform .1s,box-shadow .15s}
+.cw-btn:active{transform:scale(.98)}
+.cw-btn:disabled{opacity:.6;cursor:not-allowed}
+.cw-btn.email{background:var(--cw-navy);color:#fff;box-shadow:0 2px 8px rgba(11,29,54,.25)}
+.cw-btn.email:hover:not(:disabled){background:#14315a}
+.cw-btn.wa{background:var(--cw-wa);color:#fff;box-shadow:0 2px 8px rgba(37,211,102,.4)}
+.cw-btn.wa:hover:not(:disabled){background:var(--cw-wa-dark)}
+.cw-or{display:flex;align-items:center;gap:10px;color:#8a919a;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.cw-or::before,.cw-or::after{content:"";flex:1;height:1px;background:#e3e6ea}
+
+/* live agent (Tawk.to) */
+.cw-btn.live{background:var(--cw-navy);color:#fff;box-shadow:0 2px 8px rgba(11,29,54,.25)}
+.cw-btn.live:hover:not(:disabled){background:#14315a}
+.cw-live-dot{width:10px;height:10px;border-radius:50%;background:#3ddc84;flex:none;
+  box-shadow:0 0 0 0 rgba(61,220,132,.7);animation:cw-live 1.8s infinite}
+@keyframes cw-live{0%{box-shadow:0 0 0 0 rgba(61,220,132,.7)}70%{box-shadow:0 0 0 8px rgba(61,220,132,0)}100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}}
 
 /* input bar */
 .cw-input{display:flex;gap:8px;padding:10px;border-top:1px solid #e3e6ea;background:#fff}
@@ -128,5 +167,5 @@
   .cw-fab{right:16px;bottom:16px}.cw-teaser{right:16px;bottom:86px}
 }
 @media (prefers-reduced-motion:reduce){
-  .cw-fab.pulse::after,.cw-typing span,.cw-box,.cw-teaser{animation:none}
+  .cw-fab.pulse::after,.cw-typing span,.cw-box,.cw-teaser,.cw-live-dot,.cw-live-top .cw-live-dot{animation:none}
 }

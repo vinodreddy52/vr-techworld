@@ -1,99 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/favicon.svg" />
-    <link rel="alternate icon" href="./favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0B1D36" />
-    <meta name="description" content="VR DIGITAL & CORPORATE HUB — websites, branding, business registration, and digital marketing services for small businesses." />
-    <meta name="keywords" content="web design, logo design, business registration, GST, MSME, digital marketing, SEO, web hosting" />
-    <meta name="robots" content="index, follow" />
-    <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="VR DIGITAL & CORPORATE HUB — Empowering the Digital Future" />
-    <meta property="og:description" content="Websites, branding, registration, SEO, and digital marketing services that help businesses grow with confidence." />
+
+    <!-- Icons (use the favicon pack files in /public) -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Default title / description (each page overrides these with react-helmet) -->
+    <title>VR DIGITAL & CORPORATE HUB | Website Design, GST & MSME Registration</title>
+    <meta name="description" content="Website design, logo & branding, GST, LLP and MSME registration, tax filing and digital marketing for small businesses in India. One partner to launch, grow and stay compliant." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+
+    <!--
+      IMPORTANT: no static <link rel="canonical"> and no og:url here.
+      A canonical in this file would be copied onto EVERY page and tell Google that all pages
+      are duplicates of the home page. Each page sets its own canonical with react-helmet.
+    -->
+
+    <!-- Open Graph / WhatsApp / Facebook / LinkedIn (default share card) -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://vrdigitalcorporate.netlify.app/" />
-    <meta property="og:image" content="https://vrdigitalcorporate.netlify.app/images/VR Digital & Corporate Logo.png" />
     <meta property="og:site_name" content="VR DIGITAL & CORPORATE HUB" />
     <meta property="og:locale" content="en_IN" />
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="VR DIGITAL & CORPORATE HUB — Empowering the Digital Future" />
-    <meta name="twitter:description" content="Websites, branding, registration, SEO, and digital marketing services that help businesses grow with confidence." />
-    <meta name="twitter:image" content="https://vrdigitalcorporate.netlify.app/images/VR Digital & Corporate Logo.png" />
-    <!-- canonical for production deployment -->
-    <link rel="canonical" href="https://vrdigitalcorporate.netlify.app" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.svg" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="./manifest.json" />
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta property="og:title" content="VR DIGITAL & CORPORATE HUB | Your Digital & Compliance Partner" />
+    <meta property="og:description" content="Websites, branding, GST & MSME registration and digital marketing that help small businesses grow with confidence." />
+    <meta property="og:image" content="https://vrdigitalcorporate.netlify.app/images/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="VR Digital & Corporate - Your Digital & Compliance Partner" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VR DIGITAL & CORPORATE HUB | Your Digital & Compliance Partner" />
+    <meta name="twitter:description" content="Websites, branding, GST & MSME registration and digital marketing that help small businesses grow with confidence." />
+    <meta name="twitter:image" content="https://vrdigitalcorporate.netlify.app/images/og-image.png" />
+
+    <!--
+      Google Search Console verification.
+      Replace PASTE_YOUR_CODE with the real code from Search Console (HTML tag method),
+      or delete this line if you verify another way (DNS record / HTML file).
     -->
-    <title>VR DIGITAL & CORPORATE HUB</title>
-    <meta name="google-site-verification" content="YOUR_GOOGLE_SITE_VERIFICATION_CODE" />
+    <!-- <meta name="google-site-verification" content="PASTE_YOUR_CODE" /> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="image" href="%PUBLIC_URL%/images/hero-bg.svg" />
+    <link rel="preload" as="image" href="/images/hero-bg.svg" />
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
-    <!-- JSON-LD structured data for Organization -->
+
+    <!-- Business structured data (absolute URLs only; relative URLs are invalid here) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
+      "@type": "ProfessionalService",
       "name": "VR DIGITAL & CORPORATE HUB",
-      "url": "%PUBLIC_URL%/",
-      "logo": "%PUBLIC_URL%/images/vr-logo.svg",
+      "url": "https://vrdigitalcorporate.netlify.app/",
+      "logo": "https://vrdigitalcorporate.netlify.app/android-chrome-512x512.png",
+      "image": "https://vrdigitalcorporate.netlify.app/images/og-image.png",
+      "description": "Website design, logo and branding, GST, LLP and MSME registration, income tax and TDS filing, SEO and digital marketing for small businesses in India.",
+      "telephone": "+919042238332",
+      "email": "vrtechworld19@gmail.com",
+      "areaServed": { "@type": "Country", "name": "India" },
       "contactPoint": [{
         "@type": "ContactPoint",
         "telephone": "+919042238332",
+        "email": "vrtechworld19@gmail.com",
         "contactType": "customer service",
-        "email": "vrtechworld19@gmail.com"
+        "areaServed": "IN",
+        "availableLanguage": ["English", "Telugu", "Hindi"]
       }]
     }
     </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">
-      
-    </div>
-
-    <form name="chat-leads" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
-  <input type="hidden" name="form-name" value="chat-leads" />
-  <input name="bot-field" />
-  <input name="type" />
-  <input name="name" />
-  <input name="phone" />
-  <input name="service" />
-  <input name="date" />
-  <input name="slot" />
-  <input name="notes" />
-  <input name="language" />
-  <input name="page" />
-</form>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <!-- Content for visitors and crawlers that do not run JavaScript -->
+    <noscript>
+      <div style="font-family: Arial, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; line-height: 1.6;">
+        <h1>VR DIGITAL &amp; CORPORATE HUB</h1>
+        <p>
+          Your digital and compliance partner: website design and hosting, logo design, GST, LLP and
+          MSME registration, income tax and TDS filing, ESI and PF compliance, SEO, social media and
+          Google Ads, and e-commerce setup for small businesses in India.
+        </p>
+        <p>
+          Call or WhatsApp <a href="tel:+919042238332">+91 90422 38332</a> or email
+          <a href="mailto:vrtechworld19@gmail.com">vrtechworld19@gmail.com</a>.
+        </p>
+        <p>
+          <a href="/service">Services</a> · <a href="/about">About</a> ·
+          <a href="/pricing">Pricing</a> · <a href="/contact">Contact</a>
+        </p>
+        <p>Please enable JavaScript to use the full website.</p>
+      </div>
+    </noscript>
+    <div id="root"></div>
   </body>
 </html>

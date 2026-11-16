@@ -1,17 +1,15 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import Seo from "../components/Seo";
 import { Box, Container, Typography, Button } from "@mui/material";
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 
 const About = () => {
-  const navigate = useNavigate();
-
   return (
     <Box component="main"
       sx={{
@@ -26,12 +24,20 @@ const About = () => {
         pt: { xs: 12, sm: 13, md: 14 },
       }}
     >
-      <Helmet>
-        <title>About VR DIGITAL & CORPORATE HUB — Empowering the Digital Future</title>
-        <meta name="description" content="Learn about VR DIGITAL & CORPORATE HUB, our mission, and how we help businesses with web design, registration, branding, and digital growth solutions." />
-        <meta name="keywords" content="about VR DIGITAL & CORPORATE HUB, web design agency, business registration services, digital marketing agency, branding agency" />
-        <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/about" />
-      </Helmet>
+      <Seo
+        title="About Us: Your Digital & Compliance Partner | VR Digital"
+        description="Learn how VR DIGITAL & CORPORATE HUB helps small businesses and startups in India with web design, branding, GST and MSME registration and digital marketing through one clear process."
+        path="/about"
+        breadcrumb={[{ name: "About", path: "/about" }]}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: "About VR DIGITAL & CORPORATE HUB",
+            url: "https://vrdigitalcorporate.netlify.app/about",
+          },
+        ]}
+      />
 
       <Container maxWidth="lg" sx={{ py: { xs: 3, md: 4 } }}>
         <Typography
@@ -273,7 +279,8 @@ const About = () => {
         >
           <Button
             variant="contained"
-            onClick={() => navigate("/contact")}
+            component={RouterLink}
+            to="/contact"
             sx={{
               fontFamily: '"Outfit", sans-serif',
               textTransform: "none",
@@ -290,7 +297,8 @@ const About = () => {
           </Button>
           <Button
             variant="outlined"
-            onClick={() => navigate("/service")}
+            component={RouterLink}
+            to="/service"
             sx={{
               fontFamily: '"Outfit", sans-serif',
               textTransform: "none",

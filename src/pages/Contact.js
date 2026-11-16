@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Contact.css";
-import { Helmet } from "react-helmet-async";
+import Seo from "../components/Seo";
 import {
   Container,
   TextField,
@@ -109,12 +109,20 @@ export default function Contact() {
       }}
     >
       {/* Header */}
-      <Helmet>
-        <title>Contact VR DIGITAL & CORPORATE HUB — Website, registration, and marketing help</title>
-        <meta name="description" content="Contact VR DIGITAL & CORPORATE HUB for web design, branding, business registration, SEO, and digital marketing support." />
-        <meta name="keywords" content="contact, website design, GST registration, MSME registration, SEO, digital marketing, business support" />
-        <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/contact" />
-      </Helmet>
+      <Seo
+        title="Contact Us: Get a Free Quote | VR DIGITAL & CORPORATE HUB"
+        description="Call, WhatsApp or email VR DIGITAL & CORPORATE HUB for website design, branding, GST and MSME registration, SEO and digital marketing support. Phone +91 90422 38332."
+        path="/contact"
+        breadcrumb={[{ name: "Contact", path: "/contact" }]}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            name: "Contact VR DIGITAL & CORPORATE HUB",
+            url: "https://vrdigitalcorporate.netlify.app/contact",
+          },
+        ]}
+      />
       <Box
         className="contact-fade-up"
         sx={{

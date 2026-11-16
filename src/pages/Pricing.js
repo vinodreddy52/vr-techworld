@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
+import Seo from "../components/Seo";
 import {
   Container,
   Typography,
@@ -109,12 +109,12 @@ const Pricing = () => {
         boxSizing: "border-box",
       }}
     >
-      <Helmet>
-        <title>Pricing — VR DIGITAL & CORPORATE HUB</title>
-        <meta name="description" content="Request pricing from VR DIGITAL & CORPORATE HUB for websites, branding, SEO, business registration, and digital growth services." />
-        <meta name="keywords" content="pricing, website packages, business registration pricing, SEO plans, hosting costs, branding packages" />
-        <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/pricing" />
-      </Helmet>
+      <Seo
+        title="Pricing & Free Quote | Website, GST & Marketing | VR Digital"
+        description="Get a tailored quote for website design, branding, SEO, GST and MSME registration and digital marketing. Tell us what you need and we will share clear pricing."
+        path="/pricing"
+        breadcrumb={[{ name: "Pricing", path: "/pricing" }]}
+      />
 
       {/* Header */}
       <Box

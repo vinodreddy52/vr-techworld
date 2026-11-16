@@ -1,28 +1,37 @@
 import React, { Suspense, lazy, useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes,  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import ThemeContext from "./ThemeContext";
-const Navbar = lazy(() => import("./components/Navbar"));
+
+// Loaded immediately (above-the-fold content that Google and visitors see first)
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+
+// Lazy-loaded (below the fold / other pages)
 const Footer = lazy(() => import("./components/Footer"));
 const ScrollToTopButton = lazy(() => import("./components/ScrollToTopButton"));
-//const LazyTawk = lazy(() => import('./components/LazyTawk'));
-//import FlashNews from "./components/FlashNews";
-//import ChatWidget from "./components/ChatWidget";
-const ChatWidget = lazy(() => import('./components/ChatWidget'));
-const WidgetBoundary = lazy(() => import('./components/WidgetBoundary'));
+const ChatWidget = lazy(() => import("./components/ChatWidget"));
+const WidgetBoundary = lazy(() => import("./components/WidgetBoundary"));
 
-
-// Lazy-loaded pages
-const Home = lazy(() => import("./pages/Home"));
 const Service = lazy(() => import("./pages/Service"));
+//const ServiceDetail = lazy(() => import("./pages/Service"));
 const Pricing = lazy(() => import("./pages/Pricing"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const About = lazy(() => import("./pages/About"));
+const FAQ = lazy(() => import("./pages/FAQ"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+// Start every page at the top when the visitor navigates
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+};
 
 const RouteChangeTracker = ({ consentStatus }) => {
- // const location = useLocation();
-
   useEffect(() => {
     if (consentStatus === "accepted") {
       //initGA();
@@ -33,7 +42,7 @@ const RouteChangeTracker = ({ consentStatus }) => {
     if (consentStatus === "accepted") {
       //trackPageView(location.pathname + location.search);
     }
-  }, [ consentStatus]);
+  }, [consentStatus]);
 
   return null;
 };
@@ -56,31 +65,33 @@ const App = () => {
     } catch (e) {}
   }, [theme]);
 
+  const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme: () => setTheme((t) => (t === "light" ? "dark" : "light")) }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <HelmetProvider>
         <Router>
-          <Suspense fallback={<div />}> 
-            <Navbar theme={theme} toggleTheme={() => setTheme((t) => (t === "light" ? "dark" : "light"))} />
-          </Suspense>
+          <ScrollToTop />
+          <Navbar theme={theme} toggleTheme={toggleTheme} />
           <RouteChangeTracker />
 
-          <Suspense fallback={<div>Loading...</div>}>
-            {/* <FlashNews /> */}
+          <Suspense fallback={<div style={{ minHeight: "60vh" }} />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/service" element={<Service />} />
+              {/* <Route path="/service/:slug" element={<ServiceDetail />} /> */}
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<Privacy />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
 
           <Suspense fallback={null}>
-            {/* <LazyTawk /> */}
             <WidgetBoundary>
-              <ChatWidget/>
+              <ChatWidget />
             </WidgetBoundary>
             <ScrollToTopButton />
             <Footer />

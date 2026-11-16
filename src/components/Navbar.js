@@ -67,21 +67,31 @@ const Navbar = ({ theme, toggleTheme }) => {
         >
           <Box sx={{ flexGrow: 1, minWidth: 0 }}>
             <Box
-              component="img"
-              src="/images/VR Digital & Corporate Logo.png"
-              alt="VR DIGITAL & CORPORATE HUB"
-              width={225}
-              height={64}
-              onClick={() => handleNavigation("home")}
-              sx={{
-                width: { xs: 130, sm: 200, md: 240 },
-                maxWidth: "100%",
-                height: "auto",
-                display: "block",
-                objectFit: "contain",
-                cursor: "pointer",
+              component={RouterLink}
+              to="/"
+              aria-label="VR DIGITAL & CORPORATE HUB - home"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavigation("home");
               }}
-            />
+              sx={{ display: "inline-block", lineHeight: 0 }}
+            >
+              <Box
+                component="img"
+                src="/images/VR Digital & Corporate Logo.png"
+                alt="VR DIGITAL & CORPORATE HUB"
+                width={225}
+                height={64}
+                sx={{
+                  width: { xs: 130, sm: 200, md: 240 },
+                  maxWidth: "100%",
+                  height: "auto",
+                  display: "block",
+                  objectFit: "contain",
+                  cursor: "pointer",
+                }}
+              />
+            </Box>
           </Box>
 
           <Box sx={{ display: { xs: "none", md: "flex" }, gap: 0.5 }}>
@@ -90,7 +100,12 @@ const Navbar = ({ theme, toggleTheme }) => {
                 <Button
                   key={link.label}
                   color="inherit"
-                  onClick={() => handleNavigation("home")}
+                  component={RouterLink}
+                  to="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigation("home");
+                  }}
                   sx={{
                     fontFamily: '"Outfit", sans-serif',
                     textTransform: "none",
@@ -146,7 +161,14 @@ const Navbar = ({ theme, toggleTheme }) => {
           {navLinks.map((link) => (
             <ListItem key={link.label} disablePadding>
               {link.type === "home" ? (
-                <ListItemButton onClick={() => handleNavigation("home")}>
+                <ListItemButton
+                  component={RouterLink}
+                  to="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigation("home");
+                  }}
+                >
                   <ListItemText
                     primary={link.label}
                     primaryTypographyProps={{

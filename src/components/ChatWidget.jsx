@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { SERVICES, STEPS, GUIDE, FAQS, UI, LANGS, SLOTS, CLOSED_DAYS, PHONE, WA, EMAIL } from "./botData";
 import { reply, serviceById, MENU } from "./botBrain";
+import { openTawk, pushLeadToTawk } from "./tawk";
 import "./ChatWidget.css";
 
 // Same Formspree form as your Contact page (chat leads arrive in the same inbox)
@@ -35,6 +36,25 @@ function linkify(text) {
     /^https?:\/\//.test(p)
       ? <a key={i} href={p} target="_blank" rel="noreferrer" className="cw-link">{p.includes("wa.me") ? "WhatsApp" : p}</a>
       : p
+  );
+}
+
+/* ---------- Icons ---------- */
+function WaIcon({ size = 20 }) {
+  return (
+    <svg className="cw-ico" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  );
+}
+
+function MailIcon({ size = 20 }) {
+  return (
+    <svg className="cw-ico" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
   );
 }
 
@@ -86,13 +106,25 @@ function ContactCard({ lang }) {
   return (
     <div className="cw-card">
       <a className="cw-cbtn" href={`tel:+${PHONE}`}>📞 {u.call} +91 90422 38332</a>
-      <a className="cw-cbtn wa" href={WA} target="_blank" rel="noreferrer">💬 {u.wa}</a>
+      <a className="cw-cbtn wa" href={WA} target="_blank" rel="noreferrer"><WaIcon size={18} /> {u.wa}</a>
       <a className="cw-cbtn" href={`mailto:${EMAIL}`}>✉️ {EMAIL}</a>
     </div>
   );
 }
 
-/* ---------- Quote / Booking form (emails you via Formspree) ---------- */
+function LiveCard({ lang, busy, onStart }) {
+  const u = UI[lang];
+  return (
+    <div className="cw-card">
+      <button type="button" className="cw-btn live" disabled={busy} onClick={onStart}>
+        <span className="cw-live-dot" />
+        <span>{busy ? u.liveWait : u.liveBtn}</span>
+      </button>
+    </div>
+  );
+}
+
+/* ---------- Quote / Booking form (two send options: email or WhatsApp) ---------- */
 function LeadForm({ kind, service, lang, onDone }) {
   const f = UI[lang].form;
   const isBook = kind === "book";
@@ -104,20 +136,20 @@ function LeadForm({ kind, service, lang, onDone }) {
   const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
   const maxDay = new Date(); maxDay.setDate(maxDay.getDate() + 30);
 
-  async function submit(e) {
-    e.preventDefault();
+  // Validates the form and builds the data both buttons need
+  function prepare() {
     setErr("");
     const digits = v.phone.replace(/\D/g, "").slice(-10);
-    if (v.name.trim().length < 2) return setErr(f.eName);
-    if (digits.length !== 10) return setErr(f.ePhone);
-    if (!v.service) return setErr(f.eService);
+    if (v.name.trim().length < 2) { setErr(f.eName); return null; }
+    if (digits.length !== 10) { setErr(f.ePhone); return null; }
+    if (!v.service) { setErr(f.eService); return null; }
     if (isBook) {
-      if (!v.date) return setErr(f.eDate);
-      if (CLOSED_DAYS.includes(new Date(v.date + "T00:00:00").getDay())) return setErr(f.eClosed);
-      if (!v.slot) return setErr(f.eSlot);
+      if (!v.date) { setErr(f.eDate); return null; }
+      if (CLOSED_DAYS.includes(new Date(v.date + "T00:00:00").getDay())) { setErr(f.eClosed); return null; }
+      if (!v.slot) { setErr(f.eSlot); return null; }
     }
 
-    // Details are always sent in English so your team can read them easily
+    // Details are always in English so your team can read them easily
     const svcName = serviceById(v.service)?.t.en.title || "Not sure / other";
     const typeLabel = isBook ? "Consultation booking" : "Quote request";
     const data = {
@@ -141,16 +173,25 @@ function LeadForm({ kind, service, lang, onDone }) {
       data.notes ? `Notes: ${data.notes}` : "",
     ].filter(Boolean);
     const waLink = `${WA}?text=${encodeURIComponent(lines.join("\n"))}`;
+    return { data, waLink, typeLabel };
+  }
 
+  // Option 1: send by email (Formspree)
+  async function sendEmail(e) {
+    e.preventDefault();
+    const p = prepare();
+    if (!p) return;
     setBusy(true);
+    // Also log the lead in Tawk.to (background, never blocks the email)
+    pushLeadToTawk(p.data).catch(() => {});
     let emailed = true;
     try {
       const res = await fetch(FORMSPREE, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
-          _subject: `${typeLabel} from ${data.name} (website chat)`,
-          ...data,
+          _subject: `${p.typeLabel} from ${p.data.name} (website chat)`,
+          ...p.data,
         }),
       });
       if (!res.ok) throw new Error("send failed");
@@ -158,11 +199,19 @@ function LeadForm({ kind, service, lang, onDone }) {
       console.error("Chat lead error:", error);
       emailed = false;
     }
-    onDone({ kind, name: data.name, date: data.date, slot: data.slot, wa: waLink, emailed });
+    onDone({ kind, channel: "email", name: p.data.name, date: p.data.date, slot: p.data.slot, wa: p.waLink, emailed });
+  }
+
+  // Option 2: open WhatsApp with the details pre-filled
+  function sendWhatsApp() {
+    const p = prepare();
+    if (!p) return;
+    window.open(p.waLink, "_blank", "noopener");
+    onDone({ kind, channel: "wa", name: p.data.name, date: p.data.date, slot: p.data.slot, wa: p.waLink, emailed: true });
   }
 
   return (
-    <form className="cw-form" onSubmit={submit}>
+    <form className="cw-form" onSubmit={sendEmail}>
       <strong>{isBook ? f.bookT : f.quoteT}</strong>
       <input placeholder={f.name} value={v.name} onChange={set("name")} autoComplete="name" />
       <input placeholder={f.phone} inputMode="numeric" value={v.phone} onChange={set("phone")} autoComplete="tel" />
@@ -187,8 +236,19 @@ function LeadForm({ kind, service, lang, onDone }) {
 
       <input placeholder={f.notes} value={v.notes} onChange={set("notes")} maxLength={200} />
       {err && <div className="cw-error">{err}</div>}
+
+      <div className="cw-actions">
+        <button type="submit" className="cw-btn email" disabled={busy}>
+          <MailIcon />
+          <span>{busy ? f.sending : f.sendEmail}</span>
+        </button>
+        <div className="cw-or"><span>{f.or}</span></div>
+        <button type="button" className="cw-btn wa" disabled={busy} onClick={sendWhatsApp}>
+          <WaIcon />
+          <span>{f.sendWa}</span>
+        </button>
+      </div>
       <small className="cw-consent">{f.consent}</small>
-      <button type="submit" disabled={busy}>{busy ? f.sending : f.send}</button>
     </form>
   );
 }
@@ -200,6 +260,8 @@ export default function ChatWidget() {
   const [teaser, setTeaser] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [liveBusy, setLiveBusy] = useState(false);
+  const [tawkOpen, setTawkOpen] = useState(false);
   const [messages, setMessages] = useState(() => loadMessages(lang));
   const endRef = useRef(null);
   const inputRef = useRef(null);
@@ -207,6 +269,13 @@ export default function ChatWidget() {
   const u = UI[lang];
 
   useEffect(() => { write(STORE, JSON.stringify(messages)); }, [messages]);
+
+  // Hide our chat button while the Tawk.to window is open, so only one chat is ever visible
+  useEffect(() => {
+    const onTawk = (e) => setTawkOpen(e.detail === "open");
+    window.addEventListener("vr-tawk", onTawk);
+    return () => window.removeEventListener("vr-tawk", onTawk);
+  }, []);
 
   useEffect(() => {
     if (read("vr_teaser") === "1") return;
@@ -243,14 +312,36 @@ export default function ChatWidget() {
   }
 
   function formDone(info) {
-    const base = info.kind === "book"
-      ? u.ok.book(info.name, fmtDate(info.date, lang), info.slot)
-      : u.ok.quote(info.name);
-    const content = info.emailed ? base : `${base}\n\n${u.okFail}`;
+    let content;
+    if (info.channel === "wa") {
+      content = u.ok.wa(info.name);
+    } else {
+      const base = info.kind === "book"
+        ? u.ok.book(info.name, fmtDate(info.date, lang), info.slot)
+        : u.ok.quote(info.name);
+      content = info.emailed ? base : `${base}\n\n${u.okFail}`;
+    }
     setMessages((m) => [
       ...m.filter((x) => x.type !== "form"),
       mk("assistant", { type: "text", content, wa: info.wa, chips: ["services", "menu"] }),
     ]);
+  }
+
+  // Opens the Tawk.to live chat; shows a helpful message if it is blocked
+  async function startLive() {
+    if (liveBusy) return;
+    setLiveBusy(true);
+    try {
+      await openTawk();
+      setOpen(false);
+    } catch (error) {
+      console.error("Live chat error:", error);
+      setMessages((m) => [
+        ...m,
+        mk("assistant", { type: "text", content: u.liveFail, wa: WA, chips: ["quote", "book", "menu"] }),
+      ]);
+    }
+    setLiveBusy(false);
   }
 
   function changeLang(code) {
@@ -274,6 +365,7 @@ export default function ChatWidget() {
         return <ServiceGrid ids={m.ids} lang={lang} onPick={(s) => send({ action: "service", arg: s.id, label: s.t[lang].title })} />;
       case "process": return <Steps lang={lang} />;
       case "contact": return <ContactCard lang={lang} />;
+      case "live": return <LiveCard lang={lang} busy={liveBusy} onStart={startLive} />;
       case "form": return <LeadForm kind={m.kind} service={m.service} lang={lang} onDone={formDone} />;
       case "guide":
         return (
@@ -302,7 +394,7 @@ export default function ChatWidget() {
               <span><i className="cw-dot" /> {u.online}</span>
             </div>
             <a href={`tel:+${PHONE}`} aria-label="Call" title="Call">📞</a>
-            <a href={WA} target="_blank" rel="noreferrer" aria-label="WhatsApp" title="WhatsApp">💬</a>
+            <a href={WA} target="_blank" rel="noreferrer" aria-label="WhatsApp" title="WhatsApp"><WaIcon size={16} /></a>
             <button onClick={() => setMessages([greeting(lang)])} aria-label="Restart" title="Restart">↻</button>
             <button onClick={() => setOpen(false)} aria-label="Close" title="Close">✕</button>
           </div>
@@ -312,6 +404,10 @@ export default function ChatWidget() {
             {LANGS.map((l) => (
               <button key={l.code} className={l.code === lang ? "on" : ""} onClick={() => changeLang(l.code)}>{l.label}</button>
             ))}
+            <button type="button" className="cw-live-top" onClick={startLive} disabled={liveBusy} title={u.chip.live}>
+              <span className="cw-live-dot" />
+              <span>{liveBusy ? u.liveWait : u.liveShort}</span>
+            </button>
           </div>
 
           <div className="cw-msgs" aria-live="polite">
@@ -321,7 +417,11 @@ export default function ChatWidget() {
                 <div key={m.id} className={`cw-row ${m.role} ${extra ? "wide" : ""}`}>
                   {m.content && <div className={`cw-msg ${m.role}`}>{linkify(m.content)}</div>}
                   {extra}
-                  {m.wa && <a className="cw-cbtn wa" href={m.wa} target="_blank" rel="noreferrer">💬 {u.waBtn}</a>}
+                  {m.wa && (
+                    <a className="cw-cbtn wa" href={m.wa} target="_blank" rel="noreferrer">
+                      <WaIcon size={18} /> {u.waBtn}
+                    </a>
+                  )}
                   {(m.content || m.type === "text") && <span className="cw-time">{timeStr(m.time)}</span>}
                 </div>
               );
@@ -336,7 +436,7 @@ export default function ChatWidget() {
             {chips && (
               <div className="cw-chips">
                 {chips.map((id) => (
-                  <button key={id} onClick={() => send({ action: id, label: u.chip[id] })}>{u.chip[id]}</button>
+                  <button key={id} className={id === "live" ? "live" : ""} onClick={() => send({ action: id, label: u.chip[id] })}>{u.chip[id]}</button>
                 ))}
               </div>
             )}
@@ -356,17 +456,19 @@ export default function ChatWidget() {
         </div>
       )}
 
-      {!open && teaser && (
+      {!open && teaser && !tawkOpen && (
         <div className="cw-teaser" onClick={openChat}>
           {u.teaser}
           <button aria-label="Dismiss" onClick={(e) => { e.stopPropagation(); setTeaser(false); write("vr_teaser", "1"); }}>✕</button>
         </div>
       )}
 
-      <button className={`cw-fab ${open ? "" : "pulse"}`} onClick={() => (open ? setOpen(false) : openChat())}
-        aria-label={open ? "Close chat" : "Open chat"}>
-        {open ? "✕" : "💬"}
-      </button>
+      {!tawkOpen && (
+        <button className={`cw-fab ${open ? "" : "pulse"}`} onClick={() => (open ? setOpen(false) : openChat())}
+          aria-label={open ? "Close chat" : "Open chat"}>
+          {open ? "✕" : "💬"}
+        </button>
+      )}
     </>
   );
 }

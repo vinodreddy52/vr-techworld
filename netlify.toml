@@ -1,0 +1,11 @@
+# Put this file in the ROOT of your project (next to package.json), not inside /public or /src.
+# For Create React App the build output folder is "build". (If you use Vite, change it to "dist".)
+[build]
+  command = "npm run build"
+  publish = "build"
+
+# Single-page app fallback: lets /service, /contact, /services/... open directly (and for Google)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

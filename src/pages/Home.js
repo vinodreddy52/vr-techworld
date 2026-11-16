@@ -1,33 +1,35 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
+import Seo from "../components/Seo";
 import { Box, Typography, Button, Container } from "@mui/material";
 //import ThemeToggle from "../components/ThemeToggle";
 import { ArrowForward, DesignServices, BusinessCenter, Campaign } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+//import { HOME_FAQS } from "../data/servicePages";
 //import NextPageSection from "../components/NextPageSection";
 import "./Home.css";
 
 const services = [
-  {
+{
     icon: DesignServices,
+    to: "/service#website-design-hosting",
     title: "Website & Logo Design",
     description: "Modern sites and marks that feel sharp, clear, and built for your brand.",
   },
   {
     icon: BusinessCenter,
+    to: "/service#gst-llp-registration",
     title: "Business Registration",
     description: "GST, firm, MSME, and compliance support handled with less friction.",
   },
   {
     icon: Campaign,
+    to: "/service#social-media-google-ads",
     title: "Marketing & Ads",
     description: "Focused campaigns that put your offer in front of the right people.",
   },
 ];
 
 const Home = () => {
-  const navigate = useNavigate();
-
   return (
       <Box component="main"
         sx={{
@@ -38,12 +40,19 @@ const Home = () => {
           boxSizing: "border-box",
         }}
       >
-      <Helmet>
-        <title>VR DIGITAL & CORPORATE HUB — Empowering the Digital Future</title>
-        <meta name="description" content="VR DIGITAL & CORPORATE HUB helps businesses grow with web design, branding, registration, SEO, and digital marketing solutions." />
-        <meta name="keywords" content="web design, logo design, business registration, GST, MSME, digital marketing, SEO, branding" />
-        <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/" />
-      </Helmet>
+      <Seo
+        title="Website Design, GST & MSME Registration | VR Digital"
+        description="VR DIGITAL & CORPORATE HUB offers website design, logo & branding, GST, LLP and MSME registration, tax filing and digital marketing for small businesses in India."
+        path="/"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "VR DIGITAL & CORPORATE HUB",
+            url: "https://vrdigitalcorporate.netlify.app/",
+          },
+        ]}
+      />
       {/* Hero */}
       <Box
         id="home"
@@ -120,10 +129,26 @@ const Home = () => {
                 lineHeight: 1.1,
                 letterSpacing: "-0.03em",
                 mb: 1.5,
-                maxWidth: "14ch",
               }}
             >
-              Build a sharper digital presence
+              <Box component="span" sx={{ display: "block", maxWidth: "14ch" }}>
+                Build a sharper digital presence
+              </Box>
+              <Box
+                component="span"
+                sx={{
+                  display: "block",
+                  mt: 1.5,
+                  fontFamily: '"Outfit", sans-serif',
+                  fontWeight: 600,
+                  fontSize: { xs: "1rem", md: "1.2rem" },
+                  letterSpacing: 0,
+                  lineHeight: 1.4,
+                  color: "rgba(255,255,255,0.9)",
+                }}
+              >
+                Website design, branding &amp; business registration
+              </Box>
             </Typography>
 
             <Typography
@@ -229,7 +254,8 @@ const Home = () => {
               <Button
                 variant="outlined"
                 size="large"
-                onClick={() => navigate("/service")}
+                component={RouterLink}
+                to="/service"
                 sx={{
                   fontFamily: '"Outfit", sans-serif',
                   fontWeight: 600,
@@ -391,7 +417,8 @@ const Home = () => {
               </Typography>
             </Box>
                 <Button
-              onClick={() => navigate("/service")}
+              component={RouterLink}
+                to="/service"
               endIcon={<ArrowForward />}
               sx={{
                 fontFamily: '"Outfit", sans-serif',
@@ -418,8 +445,11 @@ const Home = () => {
                 <Box
                   key={service.title}
                   className="home-service-item"
-                  onClick={() => navigate("/service")}
+                  component={RouterLink}
+                  to={service.to}
                   sx={{
+                    textDecoration: "none",
+                    color: "inherit",
                     cursor: "pointer",
                     display: "grid",
                     gridTemplateColumns: {
@@ -521,6 +551,40 @@ const Home = () => {
         </Container>
       </Box>
 
+      {/* FAQ: visible text that helps Google understand the business */}
+      {/* <Box component="section" sx={{ py: { xs: 5, md: 8 }, bgcolor: "var(--surface)", width: "100%", maxWidth: "100%" }}>
+        <Container maxWidth="lg">
+          <Typography
+            component="h2"
+            sx={{
+              fontFamily: '"Syne", sans-serif',
+              fontWeight: 700,
+              fontSize: { xs: "1.6rem", md: "2.1rem" },
+              letterSpacing: "-0.02em",
+              color: "var(--text)",
+              mb: 3,
+            }}
+          >
+            Frequently asked questions
+          </Typography>
+          <Box sx={{ display: "grid", gap: 2.5, maxWidth: 820 }}>
+            {HOME_FAQS.map((f) => (
+              <Box key={f.q}>
+                <Typography
+                  component="h3"
+                  sx={{ fontFamily: '"Syne", sans-serif', fontWeight: 700, fontSize: "1.05rem", color: "var(--text)", mb: 0.5 }}
+                >
+                  {f.q}
+                </Typography>
+                <Typography sx={{ fontFamily: '"Outfit", sans-serif', color: "var(--muted)", lineHeight: 1.7 }}>
+                  {f.a}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Container>
+      </Box> */}
+
       {/* CTA */}
       <Box
         component="section"
@@ -575,7 +639,8 @@ const Home = () => {
           <Button
             variant="contained"
             size="large"
-            onClick={() => navigate("/contact")}
+            component={RouterLink}
+            to="/contact"
             sx={{
               fontFamily: '"Outfit", sans-serif',
               fontWeight: 600,

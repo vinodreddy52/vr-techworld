@@ -2,32 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://vrdigitalcorporate.netlify.app/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://vrdigitalcorporate.netlify.app/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://vrdigitalcorporate.netlify.app/service</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://vrdigitalcorporate.netlify.app/pricing</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://vrdigitalcorporate.netlify.app/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/website-design-hosting</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/logo-design</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/social-media-google-ads</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/income-tax-tds-return</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/gst-llp-registration</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/firm-msme-registration</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/esi-pf-labour-compliance</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/seo-content-strategy</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/website-maintenance-hosting</loc>
+    <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/services/ecommerce-setup-payments</loc>
+    <lastmod>2026-11-15</lastmod>
   </url>
   <url>
     <loc>https://vrdigitalcorporate.netlify.app/privacy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <lastmod>2026-11-15</lastmod>
   </url>
 </urlset>

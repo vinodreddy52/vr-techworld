@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
+import Seo from "../components/Seo";
 import {
   Container,
   Typography,
@@ -28,6 +28,26 @@ import {
   Close,
 } from "@mui/icons-material";
 import "./Service.css";
+//import ServiceDetails from "../pages/ServiceDetails";
+import { SERVICE_PAGES, BUSINESS } from "../data/servicePages";
+
+// Structured data: list of services offered (helps Google understand what you sell)
+const servicesListLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Services offered by VR DIGITAL & CORPORATE HUB",
+  itemListElement: SERVICE_PAGES.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Service",
+      name: p.cardTitle,
+      description: p.metaDescription,
+      areaServed: "India",
+      provider: { "@type": "ProfessionalService", name: BUSINESS.name, url: BUSINESS.url },
+    },
+  })),
+};
 
 const services = [
   {
@@ -254,12 +274,13 @@ const Services = () => {
           boxSizing: "border-box",
         }}
       >
-        <Helmet>
-          <title>Services — VR DIGITAL & CORPORATE HUB</title>
-          <meta name="description" content="Explore VR DIGITAL & CORPORATE HUB services: website design, SEO, branding, business registration, hosting, ads, and compliance support." />
-          <meta name="keywords" content="website design, SEO, business registration, GST, MSME, hosting, digital marketing, web development" />
-          <link rel="canonical" href="https://vrdigitalcorporate.netlify.app/service" />
-        </Helmet>
+        <Seo
+          title="Our Services: Website Design, GST, MSME, SEO & More | VR Digital"
+          description="Website design and hosting, logo design, GST, LLP and MSME registration, income tax and TDS filing, ESI and PF compliance, SEO, ads and e-commerce setup, all from one team."
+          path="/service"
+          breadcrumb={[{ name: "Services", path: "/service" }]}
+          jsonLd={[servicesListLd]}
+        />
         {/* Header — full-bleed bg, constrained content */}
         <Box
           className="service-fade-up"
@@ -589,6 +610,9 @@ const Services = () => {
             ))}
           </Box>
         </Container>
+
+        {/* Visible details for every service (crawlable text) */}
+        {/* <ServiceDetails /> */}
 
         {/* CTA — full-bleed bg, constrained content */}
         <Box

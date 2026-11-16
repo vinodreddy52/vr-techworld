@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Typography, Box, IconButton, Tooltip } from "@mui/material";
 import { Email, WhatsApp, ArrowOutward } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 const quickLinks = [
   { label: "Home", to: "/" },
@@ -9,6 +10,7 @@ const quickLinks = [
   { label: "Services", to: "/service" },
   { label: "Pricing", to: "/pricing" },
   { label: "Contact", to: "/contact" },
+  { label: "FAQ", to: "/faq" },
   { label: "Privacy", to: "/privacy" },
 ];
 
