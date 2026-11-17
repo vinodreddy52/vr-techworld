@@ -220,7 +220,7 @@ const Privacy = () => {
             when you interact with our website and services.
           </Typography>
 
-          <Typography
+          {/* <Typography
             sx={{
               color: "var(--muted)",
               fontSize: "0.78rem",
@@ -229,7 +229,7 @@ const Privacy = () => {
             }}
           >
             Last Updated: 16 November 2026
-          </Typography>
+          </Typography> */}
         </Box>
 
         {/* PRIVACY HIGHLIGHTS */}

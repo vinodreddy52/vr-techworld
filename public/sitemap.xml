@@ -20,7 +20,7 @@
     <loc>https://vrdigitalcorporate.netlify.app/contact</loc>
     <lastmod>2026-11-15</lastmod>
   </url>
-  <url>
+  <!-- <url>
     <loc>https://vrdigitalcorporate.netlify.app/services/website-design-hosting</loc>
     <lastmod>2026-11-15</lastmod>
   </url>
@@ -59,9 +59,13 @@
   <url>
     <loc>https://vrdigitalcorporate.netlify.app/services/ecommerce-setup-payments</loc>
     <lastmod>2026-11-15</lastmod>
-  </url>
+  </url> -->
   <url>
     <loc>https://vrdigitalcorporate.netlify.app/privacy</loc>
     <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://vrdigitalcorporate.netlify.app/faq</loc>
+    <lastmod>2026-11-17</lastmod>
   </url>
 </urlset>
